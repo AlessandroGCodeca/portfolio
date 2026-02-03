@@ -12,6 +12,7 @@
     <meta property="og:type" content="website">
     <title>Alessandro Giovanni Codecà - Portfolio</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         /* Professional Swiss/Executive Style */
         :root {
@@ -471,6 +472,93 @@
             border-bottom: none;
         }
 
+        /* Contact Form */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        input,
+        textarea {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: var(--font-main);
+            font-size: 0.95rem;
+            background: var(--bg-color);
+            /* Matches theme */
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(91, 143, 185, 0.2);
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            align-self: flex-start;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* QR Code */
+        .qr-section {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            /* Light grey bg */
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        [data-theme="dark"] .qr-section {
+            background: #2a2a2a;
+        }
+
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .qr-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         /* Language Switcher */
         .language-switcher {
             display: flex;
@@ -628,7 +716,7 @@
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
                     <h1>Alessandro Giovanni Codecà</h1>
-                    <p class="subtitle">Business Administration Student & Finance Professional</p>
+                    <p class="subtitle">Business Administration Student</p>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: center;" class="no-print">
                     <!-- Language Switcher -->
@@ -742,185 +830,218 @@
                         <span class="company">Gymnázium na ul. Ladislava Sáru č.1, Bratislava</span>
                     </div>
                 </section>
-            </section>
-
-            <aside class="right-column">
-
-                <div class="sidebar-section">
-                    <h2 class="section-title" data-translate="languages">Languages</h2>
-                    <div class="lang-list">
-                        <div class="sidebar-item">
-                            <span>Italian</span>
-                            <div class="prof-level" title="Native/Expert (C2)">
-                                <span class="prof-dot filled"></span><span class="prof-dot filled"></span><span
-                                    class="prof-dot filled"></span><span class="prof-dot filled"></span><span
-                                    class="prof-dot filled"></span>
-                            </div>
-                        </div>
-                        <div class="sidebar-item">
-                            <span>Slovak</span>
-                            <div class="prof-level" title="Native/Expert (C2)">
-                                <span class="prof-dot filled"></span><span class="prof-dot filled"></span><span
-                                    class="prof-dot filled"></span><span class="prof-dot filled"></span><span
-                                    class="prof-dot filled"></span>
-                            </div>
-                        </div>
-                        <div class="sidebar-item">
-                            <span>English</span>
-                            <div class="prof-level" title="Advanced (C1)">
-                                <span class="prof-dot filled"></span><span class="prof-dot filled"></span><span
-                                    class="prof-dot filled"></span><span class="prof-dot filled"></span><span
-                                    class="prof-dot"></span>
-                            </div>
-                        </div>
-                        <div class="sidebar-item">
-                            <span>Czech</span>
-                            <div class="prof-level" title="Advanced (C1)">
-                                <span class="prof-dot filled"></span><span class="prof-dot filled"></span><span
-                                    class="prof-dot filled"></span><span class="prof-dot filled"></span><span
-                                    class="prof-dot"></span>
-                            </div>
-                        </div>
-                        <div class="sidebar-item">
-                            <span>Spanish</span>
-                            <div class="prof-level" title="Intermediate (B1)">
-                                <span class="prof-dot filled"></span><span class="prof-dot filled"></span><span
-                                    class="prof-dot"></span><span class="prof-dot"></span><span class="prof-dot"></span>
-                            </div>
-                        </div>
-                        <div class="sidebar-item">
-                            <span>German</span>
-                            <div class="prof-level" title="Beginner (A2)">
-                                <span class="prof-dot filled"></span><span class="prof-dot"></span><span
-                                    class="prof-dot"></span><span class="prof-dot"></span><span class="prof-dot"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sidebar-section">
-                    <h2 class="section-title" data-translate="skills">Skills</h2>
-                    <div class="skills-container">
-
-                        <!-- Work Experience Skills -->
-                        <div class="skill-category">
-                            <div class="skill-category-title">Partners Financial Services</div>
-                            <div class="skill-item">Interpersonal Communication</div>
-                            <div class="skill-item">Customer Relationship Management (CRM)</div>
-                            <div class="skill-item">Financial Analysis</div>
-                        </div>
-
-                        <div class="skill-category">
-                            <div class="skill-category-title">Tatra Bank</div>
-                            <div class="skill-item">Problem Solving</div>
-                            <div class="skill-item">Documentation Control</div>
-                            <div class="skill-item">Document Tracking</div>
-                            <div class="skill-item">Paperwork</div>
-                            <div class="skill-item">Business Documentation</div>
-                            <div class="skill-item">Strategy</div>
-                            <div class="skill-item">Artificial Intelligence (AI)</div>
-                            <div class="skill-item">Computer Literacy</div>
-                            <div class="skill-item">Spreadsheets</div>
-                            <div class="skill-item">Microsoft Excel</div>
-                            <div class="skill-item">Microsoft Office</div>
-                            <div class="skill-item">Microsoft Outlook</div>
-                            <div class="skill-item">Document Management</div>
-                            <div class="skill-item">Software Documentation</div>
-                            <div class="skill-item">Documentation</div>
-                            <div class="skill-item">Technical Documentation</div>
-                            <div class="skill-item">Editing</div>
-                            <div class="skill-item">Document Review</div>
-                            <div class="skill-item">Teamwork</div>
-                            <div class="skill-item">Time Management</div>
-                            <div class="skill-item">Analytical Skills</div>
-                            <div class="skill-item">Lease Documentation</div>
-                        </div>
-
-                        <!-- Education Skills -->
-                        <div class="skill-category">
-                            <div class="skill-category-title">Prague University of Economics</div>
-                            <div class="skill-item">Management</div>
-                            <div class="skill-item">Macroeconomics</div>
-                            <div class="skill-item">Strategy</div>
-                            <div class="skill-item">Computer Literacy</div>
-                            <div class="skill-item">Citations</div>
-                            <div class="skill-item">Accounting</div>
-                            <div class="skill-item">Microsoft Word</div>
-                            <div class="skill-item">Microsoft PowerPoint</div>
-                        </div>
-
-                        <div class="skill-category">
-                            <div class="skill-category-title">Gymnázium Bratislava</div>
-                            <div class="skill-item">Italian Translation</div>
-                        </div>
-
-                        <!-- Certifications Skills -->
-                        <div class="skill-category">
-                            <div class="skill-category-title">Leadership Foundations</div>
-                            <div class="skill-item">Leadership</div>
-                            <div class="skill-item">Team Leadership</div>
-                        </div>
-
-                        <div class="skill-category">
-                            <div class="skill-category-title">Project Management Foundations</div>
-                            <div class="skill-item">Project Planning</div>
-                            <div class="skill-item">Project Estimation</div>
-                            <div class="skill-item">Project Coordination</div>
-                            <div class="skill-item">Project Management</div>
-                        </div>
-
-                        <div class="skill-category">
-                            <div class="skill-category-title">Career Essentials in Generative AI</div>
-                            <div class="skill-item">Artificial Intelligence for Business</div>
-                            <div class="skill-item">Generative AI</div>
-                            <div class="skill-item">Microsoft Copilot</div>
-                            <div class="skill-item">Prompt Engineering</div>
-                            <div class="skill-item">Responsible AI</div>
-                        </div>
-
-                        <div class="skill-category">
-                            <div class="skill-category-title">Cambridge English Certificate</div>
-                            <div class="skill-item">English as a Second Language (ESL)</div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="sidebar-section">
-                    <h2 class="section-title" data-translate="certifications">Certifications</h2>
-
-                    <div style="margin-bottom: 15px;">
-                        <div style="font-weight: 600; color: var(--primary-color);">Certificate in Advanced English C1
-                        </div>
-                        <div style="font-size: 0.9rem; color: #666; font-style: italic;">Cambridge University Press &
-                            Assessment</div>
-                        <div style="font-size: 0.85rem; margin-top: 2px;">Apr 2025</div>
-                    </div>
-
-                    <div style="margin-bottom: 15px;">
-                        <div style="font-weight: 600; color: var(--primary-color);">Career Essentials in Generative AI
-                        </div>
-                        <div style="font-size: 0.9rem; color: #666; font-style: italic;">Microsoft</div>
-                        <div style="font-size: 0.85rem; margin-top: 2px;">Oct 2025</div>
-                    </div>
-
-                    <div style="margin-bottom: 15px;">
-                        <div style="font-weight: 600; color: var(--primary-color);">Leadership Foundations</div>
-                        <div style="font-size: 0.9rem; color: #666; font-style: italic;">Project Management Institute
-                        </div>
-                        <div style="font-size: 0.85rem; margin-top: 2px;">Oct 2025</div>
-                    </div>
-
-                    <div style="margin-bottom: 15px;">
-                        <div style="font-weight: 600; color: var(--primary-color);">Project Management Foundations</div>
-                        <div style="font-size: 0.9rem; color: #666; font-style: italic;">National Association of State
-                            Boards of Accountancy (NASBA)</div>
-                        <div style="font-size: 0.85rem; margin-top: 2px;">Oct 2025</div>
-                    </div>
-                </div>
-
-            </aside>
         </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Get in Touch</h2>
+            <p style="margin-bottom: 20px; color: var(--text-light);">
+                Interested in collaboration or have a question? Send me a message directly.
+            </p>
+            <form action="https://formspree.io/f/xbjvzqle" method="POST" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="4" required
+                        placeholder="How can I help you?"></textarea>
+                </div>
+                <button type="submit" class="submit-btn" data-translate="sendMessage">Send Message</button>
+            </form>
+        </section>
+        </section>
+
+        <aside class="right-column">
+
+            <div class="sidebar-section">
+                <h2 class="section-title" data-translate="languages">Languages</h2>
+                <div class="lang-list">
+                    <div class="sidebar-item">
+                        <span>Italian</span>
+                        <div class="prof-level" title="Native/Expert (C2)">
+                            <span class="prof-dot filled"></span><span class="prof-dot filled"></span><span
+                                class="prof-dot filled"></span><span class="prof-dot filled"></span><span
+                                class="prof-dot filled"></span>
+                        </div>
+                    </div>
+                    <div class="sidebar-item">
+                        <span>Slovak</span>
+                        <div class="prof-level" title="Native/Expert (C2)">
+                            <span class="prof-dot filled"></span><span class="prof-dot filled"></span><span
+                                class="prof-dot filled"></span><span class="prof-dot filled"></span><span
+                                class="prof-dot filled"></span>
+                        </div>
+                    </div>
+                    <div class="sidebar-item">
+                        <span>English</span>
+                        <div class="prof-level" title="Advanced (C1)">
+                            <span class="prof-dot filled"></span><span class="prof-dot filled"></span><span
+                                class="prof-dot filled"></span><span class="prof-dot filled"></span><span
+                                class="prof-dot"></span>
+                        </div>
+                    </div>
+                    <div class="sidebar-item">
+                        <span>Czech</span>
+                        <div class="prof-level" title="Advanced (C1)">
+                            <span class="prof-dot filled"></span><span class="prof-dot filled"></span><span
+                                class="prof-dot filled"></span><span class="prof-dot filled"></span><span
+                                class="prof-dot"></span>
+                        </div>
+                    </div>
+                    <div class="sidebar-item">
+                        <span>Spanish</span>
+                        <div class="prof-level" title="Intermediate (B1)">
+                            <span class="prof-dot filled"></span><span class="prof-dot filled"></span><span
+                                class="prof-dot"></span><span class="prof-dot"></span><span class="prof-dot"></span>
+                        </div>
+                    </div>
+                    <div class="sidebar-item">
+                        <span>German</span>
+                        <div class="prof-level" title="Beginner (A2)">
+                            <span class="prof-dot filled"></span><span class="prof-dot"></span><span
+                                class="prof-dot"></span><span class="prof-dot"></span><span class="prof-dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="section-title" data-translate="skills">Skills</h2>
+                <div class="skills-container">
+
+                    <!-- Work Experience Skills -->
+                    <div class="skill-category">
+                        <div class="skill-category-title">Partners Financial Services</div>
+                        <div class="skill-item">Interpersonal Communication</div>
+                        <div class="skill-item">Customer Relationship Management (CRM)</div>
+                        <div class="skill-item">Financial Analysis</div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-category-title">Tatra Bank</div>
+                        <div class="skill-item">Problem Solving</div>
+                        <div class="skill-item">Documentation Control</div>
+                        <div class="skill-item">Document Tracking</div>
+                        <div class="skill-item">Paperwork</div>
+                        <div class="skill-item">Business Documentation</div>
+                        <div class="skill-item">Strategy</div>
+                        <div class="skill-item">Artificial Intelligence (AI)</div>
+                        <div class="skill-item">Computer Literacy</div>
+                        <div class="skill-item">Spreadsheets</div>
+                        <div class="skill-item">Microsoft Excel</div>
+                        <div class="skill-item">Microsoft Office</div>
+                        <div class="skill-item">Microsoft Outlook</div>
+                        <div class="skill-item">Document Management</div>
+                        <div class="skill-item">Software Documentation</div>
+                        <div class="skill-item">Documentation</div>
+                        <div class="skill-item">Technical Documentation</div>
+                        <div class="skill-item">Editing</div>
+                        <div class="skill-item">Document Review</div>
+                        <div class="skill-item">Teamwork</div>
+                        <div class="skill-item">Time Management</div>
+                        <div class="skill-item">Analytical Skills</div>
+                        <div class="skill-item">Lease Documentation</div>
+                    </div>
+
+                    <!-- Education Skills -->
+                    <div class="skill-category">
+                        <div class="skill-category-title">Prague University of Economics</div>
+                        <div class="skill-item">Management</div>
+                        <div class="skill-item">Macroeconomics</div>
+                        <div class="skill-item">Strategy</div>
+                        <div class="skill-item">Computer Literacy</div>
+                        <div class="skill-item">Citations</div>
+                        <div class="skill-item">Accounting</div>
+                        <div class="skill-item">Microsoft Word</div>
+                        <div class="skill-item">Microsoft PowerPoint</div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-category-title">Gymnázium Bratislava</div>
+                        <div class="skill-item">Italian Translation</div>
+                    </div>
+
+                    <!-- Certifications Skills -->
+                    <div class="skill-category">
+                        <div class="skill-category-title">Leadership Foundations</div>
+                        <div class="skill-item">Leadership</div>
+                        <div class="skill-item">Team Leadership</div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-category-title">Project Management Foundations</div>
+                        <div class="skill-item">Project Planning</div>
+                        <div class="skill-item">Project Estimation</div>
+                        <div class="skill-item">Project Coordination</div>
+                        <div class="skill-item">Project Management</div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-category-title">Career Essentials in Generative AI</div>
+                        <div class="skill-item">Artificial Intelligence for Business</div>
+                        <div class="skill-item">Generative AI</div>
+                        <div class="skill-item">Microsoft Copilot</div>
+                        <div class="skill-item">Prompt Engineering</div>
+                        <div class="skill-item">Responsible AI</div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-category-title">Cambridge English Certificate</div>
+                        <div class="skill-item">English as a Second Language (ESL)</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="section-title" data-translate="certifications">Certifications</h2>
+
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight: 600; color: var(--primary-color);">Certificate in Advanced English C1
+                    </div>
+                    <div style="font-size: 0.9rem; color: #666; font-style: italic;">Cambridge University Press &
+                        Assessment</div>
+                    <div style="font-size: 0.85rem; margin-top: 2px;">Apr 2025</div>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight: 600; color: var(--primary-color);">Career Essentials in Generative AI
+                    </div>
+                    <div style="font-size: 0.9rem; color: #666; font-style: italic;">Microsoft</div>
+                    <div style="font-size: 0.85rem; margin-top: 2px;">Oct 2025</div>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight: 600; color: var(--primary-color);">Leadership Foundations</div>
+                    <div style="font-size: 0.9rem; color: #666; font-style: italic;">Project Management Institute
+                    </div>
+                    <div style="font-size: 0.85rem; margin-top: 2px;">Oct 2025</div>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight: 600; color: var(--primary-color);">Project Management Foundations</div>
+                    <div style="font-size: 0.9rem; color: #666; font-style: italic;">National Association of State
+                        Boards of Accountancy (NASBA)</div>
+                    <div style="font-size: 0.85rem; margin-top: 2px;">Oct 2025</div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="qr-section">
+                    <div class="qr-label">Scan to Connect</div>
+                    <div id="qrcode"></div>
+                    <div style="font-size: 0.8rem; color: var(--text-light);">Save my vCard</div>
+                </div>
+            </div>
+
+        </aside>
+    </div>
     </div>
 
     <footer>
@@ -962,44 +1083,48 @@
         // Multi-language support
         const translations = {
             en: {
-                subtitle: "Business Administration Student & Finance Professional",
+                subtitle: "Business Administration Student",
                 profile: "Profile",
                 profileText: "I am a motivated and results-oriented business student currently pursuing a Bachelor's degree in Business Administration at the University of Economics in Prague (VŠE). I am passionate about business development, finance, and innovation, and I am eager to apply my skills to real-world projects that combine strategic thinking with practical impact.",
                 workExperience: "Work Experience",
                 education: "Education",
                 languages: "Languages",
                 skills: "Skills",
-                certifications: "Certifications"
+                certifications: "Certifications",
+                sendMessage: "Send Message"
             },
             it: {
-                subtitle: "Studente di Amministrazione Aziendale e Professionista della Finanza",
+                subtitle: "Studente di Amministrazione Aziendale",
                 profile: "Profilo",
                 profileText: "Sono uno studente di economia motivato e orientato ai risultati, attualmente iscritto a un corso di laurea in Amministrazione Aziendale presso l'Università di Economia di Praga (VŠE). Sono appassionato di sviluppo aziendale, finanza e innovazione, e sono desideroso di applicare le mie competenze a progetti reali che combinano pensiero strategico e impatto pratico.",
                 workExperience: "Esperienza Lavorativa",
                 education: "Istruzione",
                 languages: "Lingue",
                 skills: "Competenze",
-                certifications: "Certificazioni"
+                certifications: "Certificazioni",
+                sendMessage: "Invia Messaggio"
             },
             sk: {
-                subtitle: "Študent Obchodnej Administratívy a Finančný Profesionál",
+                subtitle: "Študent Obchodnej Administratívy",
                 profile: "Profil",
                 profileText: "Som motivovaný a výsledkovo orientovaný študent ekonómie, ktorý v súčasnosti študuje bakalársky program Obchodná administratíva na Vysokej škole ekonomickej v Prahe (VŠE). Som nadšený pre rozvoj podnikania, financie a inovácie a som pripravený aplikovať svoje zručnosti na reálne projekty, ktoré kombinujú strategické myslenie s praktickým dopadom.",
                 workExperience: "Pracovné Skúsenosti",
                 education: "Vzdelanie",
                 languages: "Jazyky",
                 skills: "Zručnosti",
-                certifications: "Certifikáty"
+                certifications: "Certifikáty",
+                sendMessage: "Poslať Správu"
             },
             cs: {
-                subtitle: "Student Obchodní Administrativy a Finanční Profesionál",
+                subtitle: "Student Obchodní Administrativy",
                 profile: "Profil",
                 profileText: "Jsem motivovaný a výsledkově orientovaný student ekonomie, který v současné době studuje bakalářský program Obchodní administrativa na Vysoké škole ekonomické v Praze (VŠE). Jsem nadšený pro rozvoj podnikání, finance a inovace a jsem připraven aplikovat své dovednosti na reálné projekty, které kombinují strategické myšlení s praktickým dopadem.",
                 workExperience: "Pracovní Zkušenosti",
                 education: "Vzdělání",
                 languages: "Jazyky",
                 skills: "Dovednosti",
-                certifications: "Certifikáty"
+                certifications: "Certifikáty",
+                sendMessage: "Odeslat Zprávu"
             }
         };
 
@@ -1077,6 +1202,8 @@
             document.querySelector('[data-translate="languages"]').textContent = t.languages;
             document.querySelector('[data-translate="skills"]').textContent = t.skills;
             document.querySelector('[data-translate="certifications"]').textContent = t.certifications;
+            const submitBtn = document.querySelector('[data-translate="sendMessage"]');
+            if (submitBtn) submitBtn.textContent = t.sendMessage;
 
             // Save preference
             localStorage.setItem('preferredLanguage', lang);
@@ -1114,6 +1241,25 @@
                 // Initial typing animation for default language
                 typeWriter(translations['en'].subtitle, document.querySelector('.subtitle'), 40);
             }
+
+            // Generate vCard QR
+            // vCard 4.0 format
+            const vCardData = `BEGIN:VCARD
+VERSION:4.0
+FN:Alessandro Giovanni Codecà
+EMAIL:alessandro.codeca@outlook.com
+TEL:+420775441798
+URL:https://sandrikkkk.github.io/portfolio/
+END:VCARD`;
+
+            new QRCode(document.getElementById("qrcode"), {
+                text: vCardData,
+                width: 128,
+                height: 128,
+                colorDark: "#0d253f",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
         });
     </script>
 

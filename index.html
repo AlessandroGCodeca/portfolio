@@ -12,7 +12,6 @@
     <meta property="og:type" content="website">
     <title>Alessandro Giovanni Codecà - Portfolio</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         /* Professional Swiss/Executive Style */
         :root {
@@ -556,36 +555,6 @@
             transform: translateY(-2px);
         }
 
-        /* QR Code */
-        .qr-section {
-            margin-top: 40px;
-            text-align: center;
-            padding: 20px;
-            background: #f8f9fa;
-            /* Light grey bg */
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-
-        [data-theme="dark"] .qr-section {
-            background: #2a2a2a;
-        }
-
-        #qrcode {
-            display: flex;
-            justify-content: center;
-            margin: 15px 0;
-        }
-
-        .qr-label {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-bottom: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
         /* Language Switcher */
         .language-switcher {
             display: flex;
@@ -1086,13 +1055,7 @@
                 </div>
             </div>
 
-            <div class="sidebar-section">
-                <div class="qr-section">
-                    <div class="qr-label">Scan to Connect</div>
-                    <div id="qrcode"></div>
-                    <div style="font-size: 0.8rem; color: var(--text-light);">Save my vCard</div>
-                </div>
-            </div>
+
 
         </aside>
     </div>
@@ -1296,24 +1259,6 @@
                 typeWriter(translations['en'].subtitle, document.querySelector('.subtitle'), 40);
             }
 
-            // Generate vCard QR
-            // vCard 4.0 format
-            const vCardData = `BEGIN:VCARD
-VERSION:4.0
-FN:Alessandro Giovanni Codecà
-EMAIL:alessandro.codeca@outlook.com
-TEL:+420775441798
-URL:https://sandrikkkk.github.io/portfolio/
-END:VCARD`;
-
-            new QRCode(document.getElementById("qrcode"), {
-                text: vCardData,
-                width: 128,
-                height: 128,
-                colorDark: "#0d253f",
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H
-            });
         });
     </script>
 

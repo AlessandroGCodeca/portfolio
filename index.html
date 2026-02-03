@@ -286,6 +286,33 @@
             transition: all 0.3s ease;
             animation: slideInLeft 0.6s ease-out;
             animation-fill-mode: both;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .timeline-logo {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #f0f0f0;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 2px;
+        }
+
+        .timeline-content {
+            flex-grow: 1;
         }
 
         .timeline-item:nth-child(1) {
@@ -643,6 +670,11 @@
             .date {
                 margin-bottom: 5px;
             }
+
+            .timeline-logo {
+                width: 50px;
+                height: 50px;
+            }
         }
 
         /* Print Optimization */
@@ -778,35 +810,47 @@
                     <h2 class="section-title" data-translate="workExperience">Work Experience</h2>
 
                     <div class="timeline-item">
-                        <div class="timeline-header">
-                            <div class="job-title">Trainee</div>
-                            <span class="date">Oct 2025 - Dec 2025</span>
+                        <div class="timeline-logo">
+                            <img src="images/partners-logo.jpg" alt="Partners Logo">
                         </div>
-                        <span class="company">Partners Financial Services, a.s. - Prague, Czech Republic</span>
-                        <ul class="description">
-                            <li>Collaborated with senior team members, strengthening communication skills and gaining
-                                insight into professional financial advisory workflows.</li>
-                            <li>Developed analytical thinking, attention to detail, and the ability to work with
-                                confidential data in a structured and responsible way.</li>
-                            <li>Built foundational knowledge of personal finance, financial planning, and the Czech
-                                financial market through hands-on training.</li>
-                        </ul>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <div class="job-title">Trainee</div>
+                                <span class="date">Oct 2025 - Dec 2025</span>
+                            </div>
+                            <span class="company">Partners Financial Services, a.s. - Prague, Czech Republic</span>
+                            <ul class="description">
+                                <li>Collaborated with senior team members, strengthening communication skills and
+                                    gaining
+                                    insight into professional financial advisory workflows.</li>
+                                <li>Developed analytical thinking, attention to detail, and the ability to work with
+                                    confidential data in a structured and responsible way.</li>
+                                <li>Built foundational knowledge of personal finance, financial planning, and the Czech
+                                    financial market through hands-on training.</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="timeline-item">
-                        <div class="timeline-header">
-                            <div class="job-title">Documentation Officer</div>
-                            <span class="date">Jun 2025 - Sep 2025</span>
+                        <div class="timeline-logo">
+                            <img src="images/tatra-logo.jpg" alt="Tatra Bank Logo">
                         </div>
-                        <span class="company">Tatra Bank - Bratislava, Slovakia</span>
-                        <ul class="description">
-                            <li>Ensured data accuracy on banking documents.</li>
-                            <li>Managed the manual archiving of contracts and activated them efficiently.</li>
-                            <li>Collaborated within a large team, enhancing coordination skills and learning to utilize
-                                AI effectively.</li>
-                            <li>Developed a passion for banking and finance through hands-on experience in a dynamic
-                                environment.</li>
-                        </ul>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <div class="job-title">Documentation Officer</div>
+                                <span class="date">Jun 2025 - Sep 2025</span>
+                            </div>
+                            <span class="company">Tatra Bank - Bratislava, Slovakia</span>
+                            <ul class="description">
+                                <li>Ensured data accuracy on banking documents.</li>
+                                <li>Managed the manual archiving of contracts and activated them efficiently.</li>
+                                <li>Collaborated within a large team, enhancing coordination skills and learning to
+                                    utilize
+                                    AI effectively.</li>
+                                <li>Developed a passion for banking and finance through hands-on experience in a dynamic
+                                    environment.</li>
+                            </ul>
+                        </div>
                     </div>
                 </section>
 
@@ -814,20 +858,30 @@
                     <h2 class="section-title" data-translate="education">Education</h2>
 
                     <div class="timeline-item">
-                        <div class="timeline-header">
-                            <div class="job-title">Bachelor's in Business Administration</div>
-                            <span class="date">Sep 2025 - Present</span>
+                        <div class="timeline-logo">
+                            <img src="images/vse-logo.jpg" alt="VŠE Logo">
                         </div>
-                        <span class="company">University of Economics in Prague (VŠE), Faculty of Business
-                            Administration</span>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <div class="job-title">Bachelor's in Business Administration</div>
+                                <span class="date">Sep 2025 - Present</span>
+                            </div>
+                            <span class="company">University of Economics in Prague (VŠE), Faculty of Business
+                                Administration</span>
+                        </div>
                     </div>
 
                     <div class="timeline-item">
-                        <div class="timeline-header">
-                            <div class="job-title">High School Diploma</div>
-                            <span class="date">Sep 2020 - Jun 2025</span>
+                        <div class="timeline-logo">
+                            <img src="images/gls-logo.jpg" alt="GLS Logo">
                         </div>
-                        <span class="company">Gymnázium na ul. Ladislava Sáru č.1, Bratislava</span>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <div class="job-title">High School Diploma</div>
+                                <span class="date">Sep 2020 - Jun 2025</span>
+                            </div>
+                            <span class="company">Gymnázium na ul. Ladislava Sáru č.1, Bratislava</span>
+                        </div>
                     </div>
                 </section>
         </div>

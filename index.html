@@ -152,6 +152,151 @@
             }
         }
 
+        /* Active Navigation */
+        .nav-link.active {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+
+        /* Theme Picker */
+        .theme-picker-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            z-index: 999;
+            transition: transform 0.3s;
+        }
+
+        .theme-picker-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .theme-panel {
+            position: fixed;
+            bottom: 145px;
+            right: 30px;
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .theme-panel.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .theme-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .theme-option:hover {
+            transform: scale(1.2);
+        }
+
+        .theme-option.active {
+            border-color: var(--text-color);
+        }
+
+        /* Modal */
+        dialog {
+            border: none;
+            border-radius: 12px;
+            padding: 0;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+        }
+
+        .modal-content {
+            padding: 30px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            padding: 0;
+            line-height: 1;
+        }
+
+        .school-courses {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .course-tag {
+            background: var(--bg-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -1474,6 +1619,9 @@
                             </div>
                             <span class="company">University of Economics in Prague (VŠE), Faculty of Business
                                 Administration</span>
+                            <button onclick="document.getElementById('courseworkModal').showModal()"
+                                style="margin-top: 10px; padding: 6px 12px; background: transparent; border: 1px solid var(--accent-color); color: var(--accent-color); border-radius: 6px; cursor: pointer; font-size: 0.85rem;"
+                                class="submit-btn mt-2 magnetic">View Key Coursework</button>
                         </div>
                     </div>
 
@@ -1863,6 +2011,40 @@
             <path d="M18 15l-6-6-6 6" />
         </svg>
     </button>
+
+    <!-- Theme Picker -->
+    <button class="theme-picker-btn" id="themeBtn" aria-label="Open Theme Picker">⚙️</button>
+    <div class="theme-panel" id="themePanel">
+        <div class="theme-option" style="background: #3B82F6;" onclick="setTheme('#3B82F6')" title="Vibrant Blue"></div>
+        <div class="theme-option" style="background: #10B981;" onclick="setTheme('#10B981')" title="Emerald Green">
+        </div>
+        <div class="theme-option" style="background: #8B5CF6;" onclick="setTheme('#8B5CF6')" title="Royal Purple"></div>
+        <div class="theme-option" style="background: #F59E0B;" onclick="setTheme('#F59E0B')" title="Sunset Orange">
+        </div>
+        <div class="theme-option" style="background: #EC4899;" onclick="setTheme('#EC4899')" title="Pink"></div>
+    </div>
+
+    <!-- Coursework Modal -->
+    <dialog id="courseworkModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Key Coursework</h3>
+                <button class="close-modal"
+                    onclick="document.getElementById('courseworkModal').close()">&times;</button>
+            </div>
+            <div class="school-courses">
+                <span class="course-tag">Macroeconomics</span>
+                <span class="course-tag">Microeconomics</span>
+                <span class="course-tag">Corporate Finance</span>
+                <span class="course-tag">Strategic Management</span>
+                <span class="course-tag">Business Law</span>
+                <span class="course-tag">Marketing Strategy</span>
+                <span class="course-tag">Accounting Principles</span>
+                <span class="course-tag">International Business</span>
+                <span class="course-tag">Statistics & Data Analysis</span>
+            </div>
+        </div>
+    </dialog>
     <script>
         // Multi-language support
         const translations = {
@@ -2482,6 +2664,72 @@
                 staggerObserver.observe(group);
             });
         }
+
+        // Active Navigation Logic
+        function initActiveNav() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        // Optional: skip if ID is null
+                        if (!id) return;
+
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.4 }); // Trigger when 40% visible
+
+            sections.forEach(section => observer.observe(section));
+        }
+
+        // Theme Picker Logic
+        const themeBtn = document.getElementById('themeBtn');
+        const themePanel = document.getElementById('themePanel');
+
+        themeBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent closing immediately
+            themePanel.classList.toggle('show');
+        });
+
+        // Close panel on outside click
+        window.addEventListener('click', (e) => {
+            if (!themePanel.contains(e.target) && e.target !== themeBtn) {
+                themePanel.classList.remove('show');
+            }
+        });
+
+        function setTheme(color) {
+            document.documentElement.style.setProperty('--accent-color', color);
+            localStorage.setItem('accentColor', color);
+
+            // Re-apply to progress bars if needed or just let CSS handle it
+            // Update active state visual
+            document.querySelectorAll('.theme-option').forEach(opt => {
+                opt.style.borderColor = 'transparent';
+                if (opt.style.background === color) opt.style.borderColor = 'var(--text-color)';
+            });
+        }
+
+        // Init Interactive Features
+        window.addEventListener('scroll', () => {
+            // Handled by observer mostly, but active nav fallback can act here 
+        });
+
+        // Load saved accent color
+        const savedAccent = localStorage.getItem('accentColor');
+        if (savedAccent) {
+            setTheme(savedAccent);
+        }
+
+        initActiveNav();
     </script>
 
 </body>

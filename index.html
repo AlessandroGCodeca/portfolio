@@ -9,7 +9,13 @@
     <meta property="og:title" content="Alessandro Giovanni Codecà - Portfolio">
     <meta property="og:description"
         content="Business Administration Student & Finance Professional. View my experience, skills, and education.">
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="profile">
+    <meta property="og:image" content="images/profile.jpg">
+    <meta property="og:url" content="https://alessandrogcodeca.github.io/portfolio/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Alessandro Giovanni Codecà - Portfolio">
+    <meta name="twitter:description" content="Business Administration Student & Finance Professional based in Prague.">
+    <meta name="twitter:image" content="images/profile.jpg">
     <title>Alessandro Giovanni Codecà - Portfolio</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -337,6 +343,30 @@
             border-radius: 50%;
             z-index: 0;
             pointer-events: none;
+        }
+
+        /* Profile Picture Style */
+        .profile-pic {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: var(--shadow-lg);
+            margin-right: 40px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+        }
+
+        [data-theme="dark"] .profile-pic {
+            border-color: var(--primary-light);
         }
 
         /* Typography */
@@ -673,6 +703,43 @@
             background: var(--primary-color);
         }
 
+        /* Notification Toast */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 2000;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .notification.success {
+            background: #10B981;
+            /* Emerald 500 */
+        }
+
+        .notification.error {
+            background: #EF4444;
+            /* Red 500 */
+        }
+
         .skill-category {
             margin-bottom: 25px;
         }
@@ -920,6 +987,19 @@
                 width: 50px;
                 height: 50px;
             }
+
+            /* Profile Picture - Mobile */
+            header .container {
+                flex-direction: column !important;
+                text-align: center;
+            }
+
+            .profile-pic {
+                margin-right: 0;
+                margin-bottom: 20px;
+                width: 140px;
+                height: 140px;
+            }
         }
 
         /* Print Optimization */
@@ -1069,51 +1149,62 @@
     </div>
 
     <header>
-        <div class="container">
-            <!-- No Image -->
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
 
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div>
-                    <h1>Alessandro Giovanni Codecà</h1>
-                    <p class="subtitle">Business Administration Student</p>
-                    <a href="mailto:alessandro.codeca@outlook.com" class="btn-primary no-print"
-                        style="margin-bottom: 20px; text-decoration: none;">Get in Touch</a>
-                </div>
-                <div style="display: flex; gap: 15px; align-items: center;" class="no-print">
-                    <!-- Language Switcher -->
-                    <div class="language-switcher">
-                        <!-- Dark Mode Toggle -->
-                        <button class="lang-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark Mode"
-                            style="padding: 6px 10px;">
-                            🌙
-                        </button>
+            <!-- Profile Picture -->
+            <img src="images/profile.jpg" alt="Alessandro Giovanni Codecà" class="profile-pic">
 
-                        <div class="lang-dropdown">
-                            <button class="lang-toggle" onclick="toggleLanguageMenu()" id="langToggleBtn">
-                                <span class="flag" id="currentLangFlag">🇬🇧</span>
-                                <span id="currentLangName">English</span>
-                                <span class="arrow">▼</span>
+            <div style="flex-grow: 1;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+                    <div>
+                        <h1>Alessandro Giovanni Codecà</h1>
+                        <p class="subtitle">Business Administration Student</p>
+                        <a href="mailto:alessandro.codeca@outlook.com" class="btn-primary no-print"
+                            style="margin-bottom: 20px; text-decoration: none;">Get in Touch</a>
+                    </div>
+                    <div style="display: flex; gap: 15px; align-items: center;" class="no-print">
+                        <!-- Language Switcher -->
+                        <div class="language-switcher">
+                            <!-- Dark Mode Toggle -->
+                            <button class="lang-toggle" id="themeToggle" onclick="toggleTheme()"
+                                title="Toggle Dark Mode" style="padding: 6px 10px;">
+                                🌙
                             </button>
-                            <div class="lang-menu" id="langMenu">
-                                <div class="lang-option" onclick="switchLanguage('en')"><span class="flag">🇬🇧</span>
-                                    English (UK)</div>
-                                <div class="lang-option" onclick="switchLanguage('it')"><span class="flag">🇮🇹</span>
-                                    Italian</div>
-                                <div class="lang-option" onclick="switchLanguage('sk')"><span class="flag">🇸🇰</span>
-                                    Slovak</div>
-                                <div class="lang-option" onclick="switchLanguage('cs')"><span class="flag">🇨🇿</span>
-                                    Czech</div>
-                                <div class="lang-option" onclick="switchLanguage('de')"><span class="flag">🇩🇪</span>
-                                    German</div>
-                                <div class="lang-option" onclick="switchLanguage('es')"><span class="flag">🇪🇸</span>
-                                    Spanish</div>
-                                <div class="lang-option" onclick="switchLanguage('fr')"><span class="flag">🇫🇷</span>
-                                    French</div>
+
+                            <div class="lang-dropdown">
+                                <button class="lang-toggle" onclick="toggleLanguageMenu()" id="langToggleBtn">
+                                    <span class="flag" id="currentLangFlag">🇬🇧</span>
+                                    <span id="currentLangName">English</span>
+                                    <span class="arrow">▼</span>
+                                </button>
+                                <div class="lang-menu" id="langMenu">
+                                    <div class="lang-option" onclick="switchLanguage('en')"><span
+                                            class="flag">🇬🇧</span>
+                                        English (UK)</div>
+                                    <div class="lang-option" onclick="switchLanguage('it')"><span
+                                            class="flag">🇮🇹</span>
+                                        Italian</div>
+                                    <div class="lang-option" onclick="switchLanguage('sk')"><span
+                                            class="flag">🇸🇰</span>
+                                        Slovak</div>
+                                    <div class="lang-option" onclick="switchLanguage('cs')"><span
+                                            class="flag">🇨🇿</span>
+                                        Czech</div>
+                                    <div class="lang-option" onclick="switchLanguage('de')"><span
+                                            class="flag">🇩🇪</span>
+                                        German</div>
+                                    <div class="lang-option" onclick="switchLanguage('es')"><span
+                                            class="flag">🇪🇸</span>
+                                        Spanish</div>
+                                    <div class="lang-option" onclick="switchLanguage('fr')"><span
+                                            class="flag">🇫🇷</span>
+                                        French</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Download/Print Button -->
-                    <button onclick="window.print()" style="
+                        <!-- Download/Print Button -->
+                        <button onclick="window.print()" style="
                         background: transparent;
                         border: 1px solid var(--primary-color);
                         color: var(--primary-color);
@@ -1124,19 +1215,22 @@
                         font-weight: 500;
                         transition: all 0.2s;
                     " onmouseover="this.style.background='var(--primary-color)'; this.style.color='#fff'"
-                        onmouseout="this.style.background='transparent'; this.style.color='var(--primary-color)'">
-                        Download PDF
-                    </button>
+                            onmouseout="this.style.background='transparent'; this.style.color='var(--primary-color)'">
+                            Download PDF
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="contact-info">
-                <a href="mailto:alessandro.codeca@outlook.com" class="contact-item">alessandro.codeca@outlook.com</a>
-                <span class="separator">|</span>
-                <a href="tel:+420775441798" class="contact-item">+420 775 441 798</a>
-                <span class="separator">|</span>
-                <div class="contact-item">Prague, Czech Republic</div>
             </div>
+        </div>
+
+        <div class="contact-info" style="margin-top: 20px;">
+            <a href="mailto:alessandro.codeca@outlook.com" class="contact-item">alessandro.codeca@outlook.com</a>
+            <span class="separator">|</span>
+            <a href="tel:+420775441798" class="contact-item">+420 775 441 798</a>
+            <span class="separator">|</span>
+            <div class="contact-item">Prague, Czech Republic</div>
+        </div>
         </div>
         <div class="scroll-down" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'})">
             ▼
@@ -1552,7 +1646,7 @@
             <p style="margin-bottom: 25px; color: var(--text-light);">
                 Interested in collaboration or have a question? Send me a message directly.
             </p>
-            <form action="https://formspree.io/f/xbjvzqle" method="POST" class="contact-form">
+            <form id="contact-form" action="https://formspree.io/f/xbjvzqle" method="POST" class="contact-form">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required placeholder="Your Name">
@@ -1602,6 +1696,12 @@
             <path d="M18 15l-6-6-6 6" />
         </svg>
     </button>
+
+    <!-- Notification Toast -->
+    <div class="notification" id="notification">
+        <span id="notification-message"></span>
+    </div>
+
     <script>
         // Multi-language support
         const translations = {
@@ -1905,7 +2005,64 @@
                 el.setAttribute('data-width', targetWidth);
                 barObserver.observe(el);
             });
+
+            // Contact Form AJAX Handler
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const formData = new FormData(contactForm);
+                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+
+                    // Disable button during submission
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+
+                    try {
+                        const response = await fetch(contactForm.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            // Success
+                            showNotification('Message sent successfully! 🎉', 'success');
+                            contactForm.reset();
+                        } else {
+                            // Error from server
+                            showNotification('Oops! Something went wrong. Please try again.', 'error');
+                        }
+                    } catch (error) {
+                        // Network error
+                        showNotification('Network error. Please check your connection.', 'error');
+                    } finally {
+                        // Re-enable button
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    }
+                });
+            }
         });
+
+        // Notification Helper
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const messageEl = document.getElementById('notification-message');
+
+            messageEl.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+
+            // Auto-hide after 4 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
     </script>
 
 </body>

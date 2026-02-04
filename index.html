@@ -1384,17 +1384,45 @@
             }
 
             /* Visual separators */
+            /* Visual separators */
             .section-title {
                 border-bottom-color: black;
                 color: black;
             }
 
-            /* Ensure page breaks don't cut items in half */
-            .timeline-item,
-            section {
-                page-break-inside: avoid;
+            /* Hide interactive elements */
+            .no-print,
+            nav,
+            #particles,
+            .toast,
+            .back-to-top,
+            .theme-picker-btn,
+            .contact-form,
+            .language-switcher,
+            #courseworkModal,
+            .progress-container {
+                display: none !important;
+            }
+
+            /* Ensure text contrast */
+            body {
+                background: white !important;
+                color: black !important;
+            }
+
+            /* Hide buttons */
+            button {
+                display: none !important;
             }
         }
+    </style>
+
+    /* Ensure page breaks don't cut items in half */
+    .timeline-item,
+    section {
+    page-break-inside: avoid;
+    }
+    }
     </style>
     <!-- SEO Schema -->
     <script type="application/ld+json">
@@ -1461,6 +1489,9 @@
                     <p class="subtitle">Business Administration Student</p>
                     <a href="mailto:alessandro.codeca@outlook.com" class="btn-primary no-print"
                         style="margin-bottom: 20px; text-decoration: none;">Get in Touch</a>
+                    <button class="btn-primary no-print" onclick="window.print()"
+                        style="margin-bottom: 20px; text-decoration: none; background: transparent; border: 1px solid var(--accent-color); color: var(--accent-color); margin-left: 10px;">Download
+                        Resume</button>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: center;" class="no-print">
                     <!-- Language Switcher -->

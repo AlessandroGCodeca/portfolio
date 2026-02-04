@@ -12,34 +12,58 @@
     <meta property="og:type" content="website">
     <title>Alessandro Giovanni Codecà - Portfolio</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700&display=swap"
+        rel="stylesheet">
     <style>
-        /* Professional Swiss/Executive Style */
+        /* Modern Executive Style */
         :root {
-            /* Palette: Deep Navy, Dark Grey, White */
-            --primary-color: #0d253f;
-            /* Dark Navy */
-            --text-color: #333333;
-            --text-light: #666666;
-            --bg-color: #ffffff;
-            --section-bg: #ffffff;
-            --accent-color: #5b8fb9;
-            /* Muted Professional Blue */
-            --border-color: #e0e0e0;
+            /* Palette: Deep Navy, Vibrant Blue, Clean White */
+            --primary-color: #0F172A;
+            /* Deep Navy (Slate 900) */
+            --primary-light: #1E293B;
+            /* Lighter Navy (Slate 800) */
+            --text-color: #334155;
+            /* Slate 700 */
+            --text-light: #64748B;
+            /* Slate 500 */
+            --bg-color: #F8FAFC;
+            /* Very light slate gray background */
+            --card-bg: #ffffff;
+            --accent-color: #3B82F6;
+            /* Vibrant Blue */
+            --accent-hover: #2563EB;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
-            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            --font-serif: 'Georgia', serif;
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Outfit', sans-serif;
         }
 
         /* Dark Mode Variables */
         [data-theme="dark"] {
-            --primary-color: #5b8fb9;
-            /* Lighter blue for dark mode */
-            --text-color: #e0e0e0;
-            --text-light: #a0a0a0;
-            --bg-color: #1a1a1a;
-            --section-bg: #1a1a1a;
-            --accent-color: #8ab6d6;
-            --border-color: #444;
+            --primary-color: #F8FAFC;
+            /* Inverted for headers */
+            --primary-light: #E2E8F0;
+            --text-color: #CBD5E1;
+            /* Slate 300 */
+            --text-light: #94A3B8;
+            /* Slate 400 */
+            --bg-color: #0F172A;
+            /* Slate 900 */
+            --card-bg: #1E293B;
+            /* Slate 800 */
+            --accent-color: #60A5FA;
+            /* Lighter Blue */
+            --accent-hover: #3B82F6;
+            --border-color: #334155;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
 
         /* Scroll Progress Bar */
@@ -112,6 +136,37 @@
 
             50% {
                 opacity: 0;
+            }
+        }
+
+        /* Scroll Down Indicator */
+        .scroll-down {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: var(--text-light);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0) translateX(-50%);
+            }
+
+            40% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+
+            60% {
+                transform: translateY(-5px) translateX(-50%);
             }
         }
 
@@ -193,31 +248,93 @@
         /* Header / Hero */
         header {
             text-align: left;
-            padding-bottom: 40px;
+            padding: 80px 0 60px;
+            background: linear-gradient(135deg, var(--bg-color) 0%, rgba(59, 130, 246, 0.05) 100%);
             border-bottom: 1px solid var(--border-color);
-            margin-bottom: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
             animation: fadeIn 0.8s ease-in;
+        }
+
+        /* Ambient Background Mesh (Optional simple CSS version) */
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
         }
 
         /* Typography */
         h1 {
-            font-family: var(--font-main);
+            font-family: var(--font-heading);
             font-weight: 700;
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--primary-color);
-            letter-spacing: -1px;
-            margin-bottom: 5px;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
             line-height: 1.1;
+            position: relative;
+            z-index: 1;
         }
 
         .subtitle {
             font-family: var(--font-main);
-            font-weight: 300;
-            font-size: 1.4rem;
+            font-weight: 400;
+            font-size: 1.25rem;
             color: var(--text-light);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             min-height: 1.6em;
-            /* Prevent layout shift */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 9999px;
+            /* Pill shape */
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background-color: var(--primary-light);
+            box-shadow: var(--shadow-md);
+            color: #ffffff;
+        }
+
+        /* Outline Button variation */
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            padding: 12px 24px;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(15, 23, 42, 0.02);
+            transform: translateY(-2px);
         }
 
         .contact-info {
@@ -251,10 +368,23 @@
             gap: 60px;
         }
 
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Sections */
         section {
             margin-bottom: 50px;
-            animation: fadeIn 0.8s ease-in;
+            /* Animation handled by JS IntersectionObserver */
         }
 
         .section-title {
@@ -277,70 +407,59 @@
             max-width: 600px;
         }
 
-        /* Timeline / Experience */
+        /* Timeline / Experience Cards */
         .timeline-item {
-            margin-bottom: 35px;
-            padding: 15px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            animation: slideInLeft 0.6s ease-out;
-            animation-fill-mode: both;
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 12px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            /* SlideIn animation removed in favor of scroll observer */
             display: flex;
             gap: 20px;
             align-items: flex-start;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-color);
         }
 
         .timeline-logo {
             flex-shrink: 0;
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
+            width: 56px;
+            height: 56px;
+            border-radius: 10px;
             overflow: hidden;
-            border: 1px solid #f0f0f0;
+            border: 1px solid var(--border-color);
             background: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: var(--shadow-sm);
         }
 
         .timeline-logo img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            padding: 2px;
+            padding: 4px;
         }
 
         .timeline-content {
             flex-grow: 1;
         }
 
-        .timeline-item:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .timeline-item:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .timeline-item:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .timeline-item:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        .timeline-item:hover {
-            background-color: #f8f9fa;
-            transform: translateX(8px);
-            box-shadow: -3px 0 0 var(--accent-color), 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
         .timeline-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .job-title {
@@ -479,20 +598,27 @@
 
         .skill-item {
             font-size: 0.9rem;
-            padding: 6px 8px;
+            padding: 10px 14px;
             color: var(--text-color);
-            border-bottom: 1px solid #f8f8f8;
-            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid transparent;
+            border-radius: 8px;
             transition: all 0.2s ease;
             cursor: default;
+            font-weight: 500;
         }
 
         .skill-item:hover {
-            background-color: #f0f4f8;
-            padding-left: 12px;
+            background-color: #fff;
             color: var(--primary-color);
-            font-weight: 500;
+            border-color: var(--border-color);
+            transform: translateX(5px);
+            box-shadow: var(--shadow-sm);
+            padding-left: 14px;
+            /* Maintain padding */
         }
+
+
 
         .skill-item:last-child {
             border-bottom: none;
@@ -718,6 +844,8 @@
                 <div>
                     <h1>Alessandro Giovanni Codecà</h1>
                     <p class="subtitle">Business Administration Student</p>
+                    <a href="mailto:alessandro.codeca@outlook.com" class="btn-primary no-print"
+                        style="margin-bottom: 20px; text-decoration: none;">Get in Touch</a>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: center;" class="no-print">
                     <!-- Language Switcher -->
@@ -757,6 +885,9 @@
                 <span class="separator">|</span>
                 <div class="contact-item">Prague, Czech Republic</div>
             </div>
+        </div>
+        <div class="scroll-down" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'})">
+            ▼
         </div>
     </header>
 
@@ -1256,9 +1387,30 @@
                 switchLanguage(savedLang);
             } else {
                 // Initial typing animation for default language
-                typeWriter(translations['en'].subtitle, document.querySelector('.subtitle'), 40);
+                // Note: element might need to be re-selected if not found
+                const subtitle = document.querySelector('.subtitle');
+                if (subtitle) typeWriter(translations['en'].subtitle, subtitle, 40);
             }
 
+            // Scroll Animation Observer Setup
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section, .timeline-item').forEach(el => {
+                el.classList.add('reveal');
+                observer.observe(el);
+            });
         });
     </script>
 

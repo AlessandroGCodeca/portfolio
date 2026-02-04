@@ -130,28 +130,9 @@
             visibility: visible;
         }
 
-        .back-to-top .arrow {
-            position: absolute;
-            z-index: 2;
-        }
-
-        /* Circular Progress Ring */
-        .progress-ring {
-            width: 100%;
-            height: 100%;
-            transform: rotate(-90deg);
-        }
-
-        .progress-ring__circle {
-            transition: stroke-dashoffset 0.1s;
-            transform-origin: 50% 50%;
-            stroke: var(--accent-color);
-        }
-
         .back-to-top:hover {
+            background: var(--accent-color);
             transform: translateY(-3px);
-            background: var(--primary-color);
-            /* Keep primary on hover, ring does color */
         }
 
         /* Typing Cursor */
@@ -1478,16 +1459,8 @@
                         Hello</p>
                     <h1>Alessandro Giovanni Codecà</h1>
                     <p class="subtitle">Business Administration Student</p>
-                    <p class="subtitle">Business Administration Student</p>
-                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                        <a href="mailto:alessandro.codeca@outlook.com" class="btn-primary no-print"
-                            style="margin-bottom: 20px; text-decoration: none;">Get in Touch</a>
-                        <!-- Calendly Link -->
-                        <a href="https://calendly.com/" target="_blank" class="btn-primary no-print"
-                            style="margin-bottom: 20px; text-decoration: none; background: transparent; border: 1px solid var(--accent-color); color: var(--accent-color);">
-                            Schedule a Call
-                        </a>
-                    </div>
+                    <a href="mailto:alessandro.codeca@outlook.com" class="btn-primary no-print"
+                        style="margin-bottom: 20px; text-decoration: none;">Get in Touch</a>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: center;" class="no-print">
                     <!-- Language Switcher -->
@@ -2012,13 +1985,12 @@
     </div>
 
     <!-- Back to Top Button -->
-    <!-- Back to Top with Progress -->
-    <button class="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        <svg class="progress-ring" width="100%" height="100%">
-            <circle class="progress-ring__circle" stroke="white" stroke-width="3" fill="transparent" r="20" cx="22.5"
-                cy="22.5" style="stroke-dasharray: 126; stroke-dashoffset: 126;" />
+    <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Back to Top"
+        aria-label="Scroll to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6" />
         </svg>
-        <span class="arrow">↑</span>
     </button>
 
 
@@ -2704,31 +2676,7 @@
 
         // Init Interactive Features
         window.addEventListener('scroll', () => {
-            // Back to Top & Scroll Progress
-            const backToTopBtn = document.querySelector('.back-to-top');
-            const circle = document.querySelector('.progress-ring__circle');
-            const radius = circle.r.baseVal.value;
-            const circumference = radius * 2 * Math.PI;
-
-            // Set dasharray properly
-            circle.style.strokeDasharray = `${circumference} ${circumference}`;
-
-            const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollTop = window.scrollY;
-            const offset = circumference - (scrollTop / scrollTotal) * circumference;
-
-            // Update circle
-            circle.style.strokeDashoffset = offset;
-
-            // Update Line bar (top)
-            const scrollPercent = (scrollTop / scrollTotal) * 100;
-            document.getElementById('progressBar').style.width = scrollPercent + '%';
-
-            if (scrollTop > 300) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
-            }
+            // Handled by observer mostly, but active nav fallback can act here 
         });
 
         initActiveNav();

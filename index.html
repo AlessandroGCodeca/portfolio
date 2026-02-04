@@ -152,6 +152,55 @@
             }
         }
 
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        /* Magnetic Button Effect */
+        .magnetic {
+            transition: transform 0.1s ease-out;
+            /* Faster for magnetic feel */
+            display: inline-block;
+        }
+
+        /* Staggered Animations */
+        .stagger-hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .stagger-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
         /* 3D Tilt Effect */
         .tilt-card {
             transform-style: preserve-3d;
@@ -2228,6 +2277,10 @@
             if (window.matchMedia("(min-width: 769px)").matches) {
                 initTilt();
             }
+
+            // Init Final Polish
+            initMagneticButtons();
+            initStaggeredReveals();
         });
 
         // Particle Network Logic
@@ -2373,6 +2426,60 @@
                     card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
                     // card.style.background = ''; // Reset background
                 });
+            });
+        }
+
+        // Magnetic Button Logic
+        function initMagneticButtons() {
+            const buttons = document.querySelectorAll('.submit-btn, .social-links a, .lang-toggle, .back-to-top');
+
+            buttons.forEach(btn => {
+                btn.classList.add('magnetic');
+
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+
+                    // Magnetic pull strength
+                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0, 0)';
+                });
+            });
+        }
+
+        // Staggered Reveal Logic
+        function initStaggeredReveals() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -30px 0px"
+            };
+
+            const staggerObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const parent = entry.target;
+                        const children = parent.querySelectorAll('.stagger-hidden');
+
+                        children.forEach((child, index) => {
+                            setTimeout(() => {
+                                child.classList.add('stagger-visible');
+                            }, index * 100); // 100ms delay between each item
+                        });
+
+                        staggerObserver.unobserve(parent);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe containers (Timeline & Skills)
+            document.querySelectorAll('.timeline-group, .skill-category').forEach(group => {
+                const children = group.querySelectorAll('.timeline-item, .skill-item');
+                children.forEach(child => child.classList.add('stagger-hidden'));
+                staggerObserver.observe(group);
             });
         }
     </script>

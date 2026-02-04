@@ -861,6 +861,109 @@
             color: var(--text-light);
         }
 
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #10B981;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            z-index: 10000;
+            opacity: 0;
+            transform: translateX(400px);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Copy Email Button */
+        .copy-email-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: 8px;
+            position: relative;
+        }
+
+        .copy-email-btn:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+
+        .copy-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            margin-bottom: 8px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .copy-tooltip.show {
+            opacity: 1;
+        }
+
+        /* Mobile Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-color);
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
         /* Social Media Icons */
         .social-links {
             display: flex;
@@ -919,6 +1022,44 @@
             .timeline-logo {
                 width: 50px;
                 height: 50px;
+            }
+
+            /* Mobile Navigation */
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                max-width: 300px;
+                background: var(--card-bg);
+                flex-direction: column;
+                padding: 80px 30px 30px;
+                gap: 20px;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                transition: right 0.3s ease;
+                z-index: 999;
+            }
+
+            .nav-links.mobile-active {
+                right: 0;
+            }
+
+            .nav-link {
+                font-size: 1.1rem;
+                padding: 12px 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .toast {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+                font-size: 0.9rem;
             }
         }
 
@@ -1051,14 +1192,25 @@
 <body>
 
     <!-- Sticky Navigation -->
-    <nav class="sticky-nav print-hidden">
+    <nav class="sticky-nav print-hidden" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
-            <ul class="nav-links">
-                <li><a href="#about" class="nav-link" data-translate="navProfile">Profile</a></li>
-                <li><a href="#experience" class="nav-link" data-translate="navExperience">Experience</a></li>
-                <li><a href="#education" class="nav-link" data-translate="navEducation">Education</a></li>
-                <li><a href="#skills" class="nav-link" data-translate="skills">Skills</a></li>
-                <li><a href="#contact" class="nav-link" data-translate="contact">Contact</a></li>
+            <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu" aria-expanded="false"
+                id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" class="nav-link" data-translate="navProfile"
+                        aria-label="Navigate to Profile section" onclick="closeMobileMenu()">Profile</a></li>
+                <li><a href="#experience" class="nav-link" data-translate="navExperience"
+                        aria-label="Navigate to Experience section" onclick="closeMobileMenu()">Experience</a></li>
+                <li><a href="#education" class="nav-link" data-translate="navEducation"
+                        aria-label="Navigate to Education section" onclick="closeMobileMenu()">Education</a></li>
+                <li><a href="#skills" class="nav-link" data-translate="skills" aria-label="Navigate to Skills section"
+                        onclick="closeMobileMenu()">Skills</a></li>
+                <li><a href="#contact" class="nav-link" data-translate="contact"
+                        aria-label="Navigate to Contact section" onclick="closeMobileMenu()">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -1084,7 +1236,7 @@
                     <div class="language-switcher">
                         <!-- Dark Mode Toggle -->
                         <button class="lang-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark Mode"
-                            style="padding: 6px 10px;">
+                            aria-label="Toggle dark mode" style="padding: 6px 10px;">
                             🌙
                         </button>
 
@@ -1118,6 +1270,13 @@
 
             <div class="contact-info">
                 <a href="mailto:alessandro.codeca@outlook.com" class="contact-item">alessandro.codeca@outlook.com</a>
+                <button class="copy-email-btn" onclick="copyEmail()" aria-label="Copy email address">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span class="copy-tooltip" id="copyTooltip">Copied!</span>
+                </button>
                 <span class="separator">|</span>
                 <a href="tel:+420775441798" class="contact-item">+420 775 441 798</a>
                 <span class="separator">|</span>
@@ -1581,8 +1740,15 @@
         <p>&copy; 2026 Alessandro Giovanni Codecà. All rights reserved.</p>
     </footer>
 
+    <!-- Toast Notification -->
+    <div class="toast" id="successToast" role="alert" aria-live="polite">
+        <span class="toast-icon">✓</span>
+        <span>Message sent successfully!</span>
+    </div>
+
     <!-- Back to Top Button -->
-    <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Back to Top">
+    <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Back to Top"
+        aria-label="Scroll to top">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 15l-6-6-6 6" />
@@ -1815,6 +1981,61 @@
             // Save preference
             localStorage.setItem('preferredLanguage', lang);
         }
+
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.getElementById('mobileMenuBtn');
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+
+            navLinks.classList.toggle('mobile-active');
+            hamburger.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+        }
+
+        function closeMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.getElementById('mobileMenuBtn');
+
+            navLinks.classList.remove('mobile-active');
+            hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+        }
+
+        // Copy Email Function
+        function copyEmail() {
+            const email = 'alessandro.codeca@outlook.com';
+            navigator.clipboard.writeText(email).then(() => {
+                const tooltip = document.getElementById('copyTooltip');
+                tooltip.classList.add('show');
+                setTimeout(() => {
+                    tooltip.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        // Toast Notification Function
+        function showToast() {
+            const toast = document.getElementById('successToast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
+        }
+
+        // Form Submission Handler
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('.contact-form');
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    // Let Formspree handle the actual submission
+                    // Just show the toast after a short delay
+                    setTimeout(() => {
+                        showToast();
+                    }, 500);
+                });
+            }
+        });
 
         // Scroll Progress & Back to Top
         window.onscroll = function () {

@@ -57,6 +57,12 @@
             --font-heading: 'Outfit', sans-serif;
         }
 
+        /* Custom Selection Color */
+        ::selection {
+            background: var(--accent-color);
+            color: #ffffff;
+        }
+
         /* Dark Mode Variables */
         [data-theme="dark"] {
             --primary-color: #F8FAFC;
@@ -1390,6 +1396,24 @@
             }
         }
     </style>
+    <!-- SEO Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Alessandro Giovanni Codecà",
+      "url": "https://alessandrogcodeca.github.io/portfolio/",
+      "jobTitle": "Business Administration Student",
+      "affiliation": {
+          "@type": "Organization",
+          "name": "Prague University of Economics and Business (VŠE)"
+      },
+      "sameAs": [
+          "https://www.linkedin.com/in/alessandro-codeca/",
+          "https://github.com/AlessandroGCodeca"
+      ]
+    }
+    </script>
 </head>
 
 <body>
@@ -1430,6 +1454,9 @@
 
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
+                    <p id="greeting"
+                        style="font-size: 1.1rem; color: var(--accent-color); font-weight: 500; margin-bottom: 5px;">
+                        Hello</p>
                     <h1>Alessandro Giovanni Codecà</h1>
                     <p class="subtitle">Business Administration Student</p>
                     <a href="mailto:alessandro.codeca@outlook.com" class="btn-primary no-print"
@@ -2653,6 +2680,19 @@
         });
 
         initActiveNav();
+
+
+        // Dynamic Greeting
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            const greetingEl = document.getElementById('greeting');
+            if (greetingEl) {
+                if (hour < 12) greetingEl.textContent = 'Good Morning,';
+                else if (hour < 18) greetingEl.textContent = 'Good Afternoon,';
+                else greetingEl.textContent = 'Good Evening,';
+            }
+        }
+        updateGreeting();
 
 
     </script>

@@ -100,7 +100,8 @@
         /* Back to Top Button */
         .back-to-top {
             position: fixed;
-            bottom: 30px;
+            bottom: 60px;
+            /* Moved up for ticker */
             right: 30px;
             width: 45px;
             height: 45px;
@@ -230,6 +231,69 @@
 
             50% {
                 opacity: 0;
+            }
+        }
+
+        /* Market Ticker */
+        .market-ticker {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: var(--primary-color);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'JetBrains Mono', monospace, sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .ticker-track {
+            display: flex;
+            gap: 40px;
+            white-space: nowrap;
+            animation: tickerScroll 30s linear infinite;
+        }
+
+        /* Pause on hover */
+        .market-ticker:hover .ticker-track {
+            animation-play-state: paused;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ticker-symbol {
+            font-weight: 700;
+            color: #94A3B8;
+        }
+
+        .ticker-val {
+            font-weight: 500;
+        }
+
+        .ticker-change.up {
+            color: #10B981;
+        }
+
+        .ticker-change.down {
+            color: #EF4444;
+        }
+
+        @keyframes tickerScroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
             }
         }
 
@@ -372,6 +436,8 @@
             line-height: 1.6;
             background-color: var(--bg-color);
             scroll-behavior: smooth;
+            padding-bottom: 40px;
+            /* Space for ticker */
         }
 
         a {
@@ -1977,6 +2043,75 @@
 
         </div>
     </dialog>
+    <!-- Market Ticker -->
+    <div class="market-ticker">
+        <!-- Duplicated content for seamless scroll -->
+        <div class="ticker-track">
+            <!-- Set 1 -->
+            <div class="ticker-item">
+                <span class="ticker-symbol">S&P 500</span>
+                <span class="ticker-val">4,958.20</span>
+                <span class="ticker-change up">▲ 1.25%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="ticker-symbol">NASDAQ</span>
+                <span class="ticker-val">15,628.90</span>
+                <span class="ticker-change up">▲ 1.40%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="ticker-symbol">EUR/USD</span>
+                <span class="ticker-val">1.0845</span>
+                <span class="ticker-change down">▼ 0.12%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="ticker-symbol">VŠE</span>
+                <span class="ticker-val">4.0 GPA</span>
+                <span class="ticker-change up">▲ STRONG BUY</span>
+            </div>
+            <div class="ticker-item">
+                <span class="ticker-symbol">BTC</span>
+                <span class="ticker-val">45,230.00</span>
+                <span class="ticker-change up">▲ 2.10%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="ticker-symbol">GOLD</span>
+                <span class="ticker-val">2,035.50</span>
+                <span class="ticker-change up">▲ 0.35%</span>
+            </div>
+            <!-- Set 2 (Duplicate) -->
+            <div class="ticker-item">
+                <span class="ticker-symbol">S&P 500</span>
+                <span class="ticker-val">4,958.20</span>
+                <span class="ticker-change up">▲ 1.25%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="ticker-symbol">NASDAQ</span>
+                <span class="ticker-val">15,628.90</span>
+                <span class="ticker-change up">▲ 1.40%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="ticker-symbol">EUR/USD</span>
+                <span class="ticker-val">1.0845</span>
+                <span class="ticker-change down">▼ 0.12%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="ticker-symbol">VŠE</span>
+                <span class="ticker-val">4.0 GPA</span>
+                <span class="ticker-change up">▲ STRONG BUY</span>
+            </div>
+            <div class="ticker-item">
+                <span class="ticker-symbol">BTC</span>
+                <span class="ticker-val">45,230.00</span>
+                <span class="ticker-change up">▲ 2.10%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="ticker-symbol">GOLD</span>
+                <span class="ticker-val">2,035.50</span>
+                <span class="ticker-change up">▲ 0.35%</span>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Multi-language support
         const translations = {

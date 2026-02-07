@@ -4,6 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ====================================================================
+         SECURITY HEADERS (OWASP Best Practices)
+         These meta tags provide defense-in-depth security for static sites.
+         ==================================================================== -->
+    <!-- Content Security Policy: Restricts resource loading to prevent XSS -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; 
+                   script-src 'self' 'unsafe-inline'; 
+                   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+                   font-src 'self' https://fonts.gstatic.com; 
+                   img-src 'self' data: https:; 
+                   connect-src 'self' https://formspree.io;
+                   form-action 'self' https://formspree.io; 
+                   frame-ancestors 'none'; 
+                   base-uri 'self';">
+    <!-- Prevent MIME-type sniffing attacks -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <!-- Control referrer information for privacy -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
     <meta name="description"
         content="Portfolio of Alessandro Giovanni Codecà - Business Administration Student & Finance Professional based in Prague.">
     <meta property="og:title" content="Alessandro Giovanni Codecà - Portfolio">
@@ -1099,6 +1119,89 @@
             font-size: 1.5rem;
         }
 
+        /* ================================================================
+           SECURITY-RELATED STYLES
+           Styles for validation errors, rate limiting, and honeypot
+           ================================================================ */
+
+        /* Honeypot field - hidden from humans but visible to bots */
+        .form-honey {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            opacity: 0;
+            height: 0;
+            width: 0;
+            z-index: -1;
+            pointer-events: none;
+            /* Screen reader accessible hiding */
+            clip: rect(0 0 0 0);
+            overflow: hidden;
+        }
+
+        /* Validation error styles */
+        .form-error {
+            color: #DC2626;
+            font-size: 0.85rem;
+            margin-top: 4px;
+            display: none;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .form-error.show {
+            display: block;
+        }
+
+        .form-group.has-error input,
+        .form-group.has-error textarea {
+            border-color: #DC2626;
+            background-color: rgba(220, 38, 38, 0.03);
+        }
+
+        .form-group.has-error input:focus,
+        .form-group.has-error textarea:focus {
+            box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+        }
+
+        /* Rate limit warning banner */
+        .rate-limit-warning {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border: 1px solid #F59E0B;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #92400E;
+        }
+
+        .rate-limit-warning.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .rate-limit-warning .warning-icon {
+            font-size: 1.2rem;
+        }
+
+        .rate-limit-warning .countdown {
+            font-weight: 600;
+        }
+
+        /* Dark mode adjustments for security styles */
+        [data-theme="dark"] .rate-limit-warning {
+            background: linear-gradient(135deg, #78350F 0%, #92400E 100%);
+            border-color: #D97706;
+            color: #FEF3C7;
+        }
+
+        [data-theme="dark"] .form-group.has-error input,
+        [data-theme="dark"] .form-group.has-error textarea {
+            background-color: rgba(220, 38, 38, 0.1);
+        }
+
         /* Copy Email Button */
         .copy-email-btn {
             display: inline-flex;
@@ -1931,21 +2034,47 @@
             <p style="margin-bottom: 25px; color: var(--text-light);">
                 Interested in collaboration or have a question? Send me a message directly.
             </p>
-            <form action="https://formspree.io/f/xykprnrl" method="POST" class="contact-form">
+            <!-- ============================================================
+                 SECURE CONTACT FORM
+                 Features: Rate limiting, input validation, XSS sanitization,
+                 honeypot protection. See SecurityModule in <script> for logic.
+                 ============================================================ -->
+            <form action="https://formspree.io/f/xykprnrl" method="POST" class="contact-form" id="contactForm"
+                novalidate>
+
+                <!-- Rate Limit Warning (shown when user exceeds submission limit) -->
+                <div class="rate-limit-warning" id="rateLimitWarning" role="alert" aria-live="polite">
+                    <span class="warning-icon">⚠️</span>
+                    <span>Too many submissions. Please wait <span class="countdown" id="rateLimitCountdown">--</span>
+                        before trying again.</span>
+                </div>
+
+                <!-- Honeypot field: Hidden from humans, catches bots (OWASP bot protection) -->
+                <div class="form-honey" aria-hidden="true">
+                    <label for="website">Website (leave blank)</label>
+                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                </div>
+
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Your Name">
+                    <input type="text" id="name" name="name" placeholder="Your Name" maxlength="100" autocomplete="name"
+                        aria-describedby="name-error">
+                    <span class="form-error" id="name-error" role="alert"></span>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" maxlength="254"
+                        autocomplete="email" aria-describedby="email-error">
+                    <span class="form-error" id="email-error" role="alert"></span>
                 </div>
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="4" required
-                        placeholder="How can I help you?"></textarea>
+                    <textarea id="message" name="message" rows="4" placeholder="How can I help you?" maxlength="5000"
+                        aria-describedby="message-error"></textarea>
+                    <span class="form-error" id="message-error" role="alert"></span>
                 </div>
-                <button type="submit" class="submit-btn" data-translate="sendMessage">Send Message</button>
+                <button type="submit" class="submit-btn" id="submitBtn" data-translate="sendMessage">Send
+                    Message</button>
             </form>
         </section>
     </div>
@@ -2332,18 +2461,469 @@
             }, 5000);
         }
 
-        // Form Submission Handler
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.querySelector('.contact-form');
-            if (form) {
-                form.addEventListener('submit', function (e) {
-                    // Let Formspree handle the actual submission
-                    // Just show the toast after a short delay
-                    setTimeout(() => {
-                        showToast();
-                    }, 500);
-                });
+        /* ====================================================================
+           SECURITY MODULE (OWASP Best Practices)
+           
+           Implements client-side security features for static sites:
+           - Rate limiting with localStorage tracking
+           - Schema-based input validation
+           - XSS sanitization
+           - Honeypot bot protection
+           
+           Note: This is defense-in-depth for static sites. Formspree also
+           provides server-side spam protection. These measures provide
+           additional security and user experience improvements.
+           ==================================================================== */
+        const SecurityModule = {
+
+            // ================================================================
+            // CONFIGURATION
+            // Adjust these values to tune rate limiting behavior
+            // ================================================================
+            config: {
+                // Rate limit: max submissions per time window
+                maxSubmissions: 3,
+                // Time window in milliseconds (5 minutes)
+                timeWindow: 5 * 60 * 1000,
+                // Storage key for rate limit data
+                storageKey: 'formRateLimit',
+                // Input validation schemas
+                validation: {
+                    name: {
+                        minLength: 1,
+                        maxLength: 100,
+                        // Allow letters, spaces, hyphens, apostrophes, periods (international names)
+                        pattern: /^[\p{L}\s\-'.]+$/u,
+                        errorRequired: 'Please enter your name.',
+                        errorInvalid: 'Name contains invalid characters.',
+                        errorLength: 'Name must be under 100 characters.'
+                    },
+                    email: {
+                        minLength: 5,
+                        maxLength: 254,
+                        // Simplified RFC 5322 email pattern
+                        pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+                        errorRequired: 'Please enter your email address.',
+                        errorInvalid: 'Please enter a valid email address.',
+                        errorLength: 'Email must be under 254 characters.'
+                    },
+                    message: {
+                        minLength: 1,
+                        maxLength: 5000,
+                        // Allow most printable characters and newlines
+                        pattern: null, // Will sanitize instead
+                        errorRequired: 'Please enter a message.',
+                        errorLength: 'Message must be under 5000 characters.'
+                    }
+                }
+            },
+
+            // ================================================================
+            // RATE LIMITING
+            // Prevents rapid-fire form submissions (OWASP rate limiting)
+            // Uses localStorage to track submission timestamps
+            // ================================================================
+
+            /**
+             * Get rate limit data from localStorage
+             * @returns {Object} Rate limit data with submissions array
+             */
+            getRateLimitData() {
+                try {
+                    const data = localStorage.getItem(this.config.storageKey);
+                    return data ? JSON.parse(data) : { submissions: [] };
+                } catch (e) {
+                    console.warn('SecurityModule: localStorage unavailable');
+                    return { submissions: [] };
+                }
+            },
+
+            /**
+             * Save rate limit data to localStorage
+             * @param {Object} data - Rate limit data to save
+             */
+            setRateLimitData(data) {
+                try {
+                    localStorage.setItem(this.config.storageKey, JSON.stringify(data));
+                } catch (e) {
+                    console.warn('SecurityModule: Could not save rate limit data');
+                }
+            },
+
+            /**
+             * Check if user is rate limited
+             * @returns {Object} { limited: boolean, resetIn: milliseconds }
+             */
+            checkRateLimit() {
+                const now = Date.now();
+                const data = this.getRateLimitData();
+
+                // Filter out expired submissions (outside time window)
+                const recentSubmissions = data.submissions.filter(
+                    timestamp => now - timestamp < this.config.timeWindow
+                );
+
+                // Update stored data with only recent submissions
+                this.setRateLimitData({ submissions: recentSubmissions });
+
+                if (recentSubmissions.length >= this.config.maxSubmissions) {
+                    // Calculate time until oldest submission expires
+                    const oldestSubmission = Math.min(...recentSubmissions);
+                    const resetIn = (oldestSubmission + this.config.timeWindow) - now;
+                    return { limited: true, resetIn: Math.max(0, resetIn) };
+                }
+
+                return { limited: false, resetIn: 0 };
+            },
+
+            /**
+             * Record a new form submission attempt
+             */
+            recordSubmission() {
+                const data = this.getRateLimitData();
+                data.submissions.push(Date.now());
+                this.setRateLimitData(data);
+            },
+
+            /**
+             * Format milliseconds as human-readable countdown
+             * @param {number} ms - Milliseconds
+             * @returns {string} Formatted time string
+             */
+            formatCountdown(ms) {
+                const seconds = Math.ceil(ms / 1000);
+                if (seconds < 60) return `${seconds} seconds`;
+                const minutes = Math.ceil(seconds / 60);
+                return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+            },
+
+            // ================================================================
+            // XSS SANITIZATION
+            // Escapes HTML entities to prevent script injection
+            // (OWASP XSS Prevention Cheat Sheet)
+            // ================================================================
+
+            /**
+             * Sanitize string by escaping HTML entities
+             * @param {string} str - Input string to sanitize
+             * @returns {string} Sanitized string
+             */
+            sanitizeHTML(str) {
+                if (typeof str !== 'string') return '';
+
+                const htmlEntities = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#x27;',
+                    '/': '&#x2F;',
+                    '`': '&#x60;',
+                    '=': '&#x3D;'
+                };
+
+                return str.replace(/[&<>"'`=/]/g, char => htmlEntities[char]);
+            },
+
+            /**
+             * Remove potentially dangerous patterns from input
+             * @param {string} str - Input string
+             * @returns {string} Cleaned string
+             */
+            cleanInput(str) {
+                if (typeof str !== 'string') return '';
+
+                // Remove null bytes
+                str = str.replace(/\0/g, '');
+
+                // Trim whitespace
+                str = str.trim();
+
+                return str;
+            },
+
+            // ================================================================
+            // INPUT VALIDATION
+            // Schema-based validation with type checks and length limits
+            // (OWASP Input Validation Cheat Sheet)
+            // ================================================================
+
+            /**
+             * Validate a single field against its schema
+             * @param {string} fieldName - Name of the field
+             * @param {string} value - Value to validate
+             * @returns {Object} { valid: boolean, error: string|null }
+             */
+            validateField(fieldName, value) {
+                const schema = this.config.validation[fieldName];
+                if (!schema) return { valid: true, error: null };
+
+                // Clean the input first
+                const cleaned = this.cleanInput(value);
+
+                // Check required (empty after cleaning)
+                if (cleaned.length < schema.minLength) {
+                    return { valid: false, error: schema.errorRequired };
+                }
+
+                // Check max length
+                if (cleaned.length > schema.maxLength) {
+                    return { valid: false, error: schema.errorLength };
+                }
+
+                // Check pattern (if defined)
+                if (schema.pattern && !schema.pattern.test(cleaned)) {
+                    return { valid: false, error: schema.errorInvalid };
+                }
+
+                return { valid: true, error: null };
+            },
+
+            /**
+             * Validate all form fields
+             * @param {Object} fields - Object with field names as keys
+             * @returns {Object} { valid: boolean, errors: {fieldName: error} }
+             */
+            validateForm(fields) {
+                const errors = {};
+                let valid = true;
+
+                for (const [fieldName, value] of Object.entries(fields)) {
+                    const result = this.validateField(fieldName, value);
+                    if (!result.valid) {
+                        valid = false;
+                        errors[fieldName] = result.error;
+                    }
+                }
+
+                return { valid, errors };
+            },
+
+            // ================================================================
+            // HONEYPOT PROTECTION
+            // Hidden field that bots typically fill out
+            // (OWASP Bot Detection)
+            // ================================================================
+
+            /**
+             * Check if honeypot field was filled (indicates bot)
+             * @param {string} honeypotValue - Value of honeypot field
+             * @returns {boolean} True if likely a bot
+             */
+            checkHoneypot(honeypotValue) {
+                // If honeypot has any value, it's likely a bot
+                return honeypotValue && honeypotValue.trim().length > 0;
             }
+        };
+
+        // ================================================================
+        // FORM SUBMISSION HANDLER
+        // Integrates all security features with the contact form
+        // ================================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contactForm');
+            if (!form) return;
+
+            const submitBtn = document.getElementById('submitBtn');
+            const rateLimitWarning = document.getElementById('rateLimitWarning');
+            const countdownEl = document.getElementById('rateLimitCountdown');
+
+            let countdownInterval = null;
+
+            /**
+             * Show validation error for a field
+             */
+            function showFieldError(fieldName, message) {
+                const group = document.getElementById(fieldName).closest('.form-group');
+                const errorEl = document.getElementById(`${fieldName}-error`);
+
+                group.classList.add('has-error');
+                errorEl.textContent = message;
+                errorEl.classList.add('show');
+            }
+
+            /**
+             * Clear validation error for a field
+             */
+            function clearFieldError(fieldName) {
+                const group = document.getElementById(fieldName).closest('.form-group');
+                const errorEl = document.getElementById(`${fieldName}-error`);
+
+                group.classList.remove('has-error');
+                errorEl.textContent = '';
+                errorEl.classList.remove('show');
+            }
+
+            /**
+             * Clear all validation errors
+             */
+            function clearAllErrors() {
+                ['name', 'email', 'message'].forEach(clearFieldError);
+            }
+
+            /**
+             * Update rate limit UI
+             */
+            function updateRateLimitUI(limited, resetIn) {
+                if (limited) {
+                    rateLimitWarning.classList.add('show');
+                    submitBtn.disabled = true;
+                    submitBtn.style.opacity = '0.5';
+                    submitBtn.style.cursor = 'not-allowed';
+
+                    // Update countdown
+                    countdownEl.textContent = SecurityModule.formatCountdown(resetIn);
+
+                    // Clear any existing interval
+                    if (countdownInterval) clearInterval(countdownInterval);
+
+                    // Start countdown timer
+                    const endTime = Date.now() + resetIn;
+                    countdownInterval = setInterval(() => {
+                        const remaining = endTime - Date.now();
+                        if (remaining <= 0) {
+                            clearInterval(countdownInterval);
+                            rateLimitWarning.classList.remove('show');
+                            submitBtn.disabled = false;
+                            submitBtn.style.opacity = '';
+                            submitBtn.style.cursor = '';
+                        } else {
+                            countdownEl.textContent = SecurityModule.formatCountdown(remaining);
+                        }
+                    }, 1000);
+                } else {
+                    rateLimitWarning.classList.remove('show');
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '';
+                    submitBtn.style.cursor = '';
+                }
+            }
+
+            // Check rate limit on page load
+            const initialCheck = SecurityModule.checkRateLimit();
+            if (initialCheck.limited) {
+                updateRateLimitUI(true, initialCheck.resetIn);
+            }
+
+            // Real-time validation on input blur
+            ['name', 'email', 'message'].forEach(fieldName => {
+                const input = document.getElementById(fieldName);
+                if (input) {
+                    input.addEventListener('blur', () => {
+                        const result = SecurityModule.validateField(fieldName, input.value);
+                        if (!result.valid) {
+                            showFieldError(fieldName, result.error);
+                        } else {
+                            clearFieldError(fieldName);
+                        }
+                    });
+
+                    // Clear error when user starts typing
+                    input.addEventListener('input', () => {
+                        clearFieldError(fieldName);
+                    });
+                }
+            });
+
+            // Form submission handler
+            form.addEventListener('submit', function (e) {
+                // Always prevent default first - we'll submit programmatically if valid
+                e.preventDefault();
+
+                clearAllErrors();
+
+                // 1. Check honeypot (bot protection)
+                const honeypotValue = document.getElementById('website').value;
+                if (SecurityModule.checkHoneypot(honeypotValue)) {
+                    // Silently reject bot submissions
+                    // Show fake success to confuse bots
+                    console.log('SecurityModule: Honeypot triggered');
+                    showToast();
+                    form.reset();
+                    return;
+                }
+
+                // 2. Check rate limit
+                const rateCheck = SecurityModule.checkRateLimit();
+                if (rateCheck.limited) {
+                    updateRateLimitUI(true, rateCheck.resetIn);
+                    return;
+                }
+
+                // 3. Validate all fields
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    message: document.getElementById('message').value
+                };
+
+                const validation = SecurityModule.validateForm(formData);
+
+                if (!validation.valid) {
+                    // Show all validation errors
+                    for (const [field, error] of Object.entries(validation.errors)) {
+                        showFieldError(field, error);
+                    }
+                    // Focus first field with error
+                    const firstErrorField = Object.keys(validation.errors)[0];
+                    document.getElementById(firstErrorField).focus();
+                    return;
+                }
+
+                // 4. Sanitize inputs before submission
+                document.getElementById('name').value = SecurityModule.sanitizeHTML(formData.name);
+                document.getElementById('message').value = SecurityModule.sanitizeHTML(formData.message);
+                // Note: Email is not HTML-sanitized to preserve valid email format
+
+                // 5. Record submission for rate limiting
+                SecurityModule.recordSubmission();
+
+                // 6. Submit the form to Formspree
+                // Using fetch for better control over success/error handling
+                const submitData = new FormData(form);
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: submitData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            showToast();
+                            form.reset();
+                        } else {
+                            throw new Error('Submission failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Form submission error:', error);
+                        // Show error toast (reuse existing toast with different message)
+                        const toast = document.getElementById('successToast');
+                        toast.querySelector('span:last-child').textContent = 'Failed to send. Please try again.';
+                        toast.style.background = '#DC2626';
+                        toast.classList.add('show');
+                        setTimeout(() => {
+                            toast.classList.remove('show');
+                            toast.querySelector('span:last-child').textContent = 'Message sent successfully!';
+                            toast.style.background = '';
+                        }, 5000);
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Send Message';
+
+                        // Check if now rate limited
+                        const postCheck = SecurityModule.checkRateLimit();
+                        if (postCheck.limited) {
+                            updateRateLimitUI(true, postCheck.resetIn);
+                        }
+                    });
+            });
         });
 
         // Scroll Progress & Back to Top

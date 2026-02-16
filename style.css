@@ -609,6 +609,16 @@ h1 {
     color: #ffffff;
 }
 
+[data-theme="dark"] .btn-primary {
+    background-color: var(--accent-color);
+    color: #0F172A;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background-color: var(--accent-hover);
+    color: #0F172A;
+}
+
 /* Outline Button variation */
 .btn-outline {
     background-color: transparent;

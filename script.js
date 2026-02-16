@@ -11,6 +11,14 @@ function toggleTheme() {
     body.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
     updateThemeIcon(newTheme);
+    updateThemeColor(newTheme);
+}
+
+function updateThemeColor(theme) {
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+        meta.setAttribute('content', theme === 'dark' ? '#0F172A' : '#F8FAFC');
+    }
 }
 
 function updateThemeIcon(theme) {
@@ -96,7 +104,7 @@ function toggleLanguageMenu() {
 }
 
 // Close dropdown when clicking outside
-window.onclick = function (event) {
+window.addEventListener('click', function (event) {
     if (!event.target.matches('.lang-toggle') && !event.target.closest('.lang-toggle')) {
         const dropdowns = document.getElementsByClassName("lang-menu");
         for (let i = 0; i < dropdowns.length; i++) {
@@ -106,7 +114,7 @@ window.onclick = function (event) {
             }
         }
     }
-}
+});
 
 function switchLanguage(lang) {
     const t = translations[lang];
@@ -657,29 +665,103 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Scroll Progress & Back to Top
-window.onscroll = function () {
-    // Progress Bar
-    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    let scrolled = (winScroll / height) * 100;
-    document.getElementById("progressBar").style.width = scrolled + "%";
+// Scroll Progress & Back to Top (debounced with rAF)
+let scrollTicking = false;
+window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+        requestAnimationFrame(function () {
+            // Progress Bar
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
 
-    // Back to Top Button
-    const backToTopBtn = document.querySelector('.back-to-top');
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        backToTopBtn.classList.add('visible');
-    } else {
-        backToTopBtn.classList.remove('visible');
+            // Back to Top Button
+            const backToTopBtn = document.querySelector('.back-to-top');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+            scrollTicking = false;
+        });
+        scrollTicking = true;
     }
-};
+});
 
 // Initialization
 window.addEventListener('DOMContentLoaded', () => {
+    // ================================================================
+    // EVENT LISTENER BINDINGS (CSP-compliant, no inline handlers)
+    // ================================================================
+
+    // Hamburger menu
+    document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
+
+    // Nav links close mobile menu on click + section highlight flash
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            closeMobileMenu();
+            // Section highlight flash
+            const targetId = link.getAttribute('href');
+            if (targetId && targetId.startsWith('#')) {
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.classList.remove('section-highlight');
+                    // Force reflow to restart animation
+                    void targetSection.offsetWidth;
+                    targetSection.classList.add('section-highlight');
+                    targetSection.addEventListener('animationend', () => {
+                        targetSection.classList.remove('section-highlight');
+                    }, { once: true });
+                }
+            }
+        });
+    });
+
+    // Theme toggle
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+    // Language menu toggle
+    document.getElementById('langToggleBtn').addEventListener('click', toggleLanguageMenu);
+
+    // Language options
+    document.querySelectorAll('.lang-option[data-lang]').forEach(option => {
+        option.addEventListener('click', () => {
+            switchLanguage(option.getAttribute('data-lang'));
+        });
+    });
+
+    // Copy email button
+    document.getElementById('copyEmailBtn').addEventListener('click', copyEmail);
+
+    // Scroll down indicator
+    document.getElementById('scrollDownIndicator').addEventListener('click', () => {
+        window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+    });
+
+    // Back to top button
+    document.getElementById('backToTopBtn').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Coursework modal open
+    document.getElementById('showCourseworkBtn').addEventListener('click', () => {
+        document.getElementById('courseworkModal').showModal();
+    });
+
+    // Coursework modal close
+    document.getElementById('closeModalBtn').addEventListener('click', () => {
+        document.getElementById('courseworkModal').close();
+    });
+
+    // ================================================================
+
     // Theme
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.body.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
+    updateThemeColor(savedTheme);
 
     // Language
     const savedLang = localStorage.getItem('preferredLanguage') || 'en';
@@ -756,12 +838,16 @@ function initParticles() {
     let width, height;
     let particles = [];
 
-    // Resize handling
+    // Resize handling (debounced)
+    let resizeTimeout;
     function resize() {
         width = canvas.width = canvas.parentElement.offsetWidth;
         height = canvas.height = canvas.parentElement.offsetHeight;
     }
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(resize, 100);
+    });
     resize();
 
     // Mouse tracking
@@ -960,29 +1046,57 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
-// Active Navigation Logic
+// Active Navigation Logic with Sliding Underline
 function initActiveNav() {
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
+    const navContainer = document.querySelector('.nav-links');
+
+    // Create sliding indicator element
+    const indicator = document.createElement('div');
+    indicator.className = 'nav-indicator';
+    if (navContainer) {
+        navContainer.style.position = 'relative';
+        navContainer.appendChild(indicator);
+    }
+
+    function updateIndicator(activeLink) {
+        if (!activeLink || !navContainer) {
+            indicator.style.width = '0';
+            return;
+        }
+        const linkRect = activeLink.getBoundingClientRect();
+        const containerRect = navContainer.getBoundingClientRect();
+        indicator.style.left = (linkRect.left - containerRect.left) + 'px';
+        indicator.style.width = linkRect.width + 'px';
+    }
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const id = entry.target.getAttribute('id');
-                // Optional: skip if ID is null
                 if (!id) return;
 
+                let activeLink = null;
                 navLinks.forEach(link => {
                     link.classList.remove('active');
                     if (link.getAttribute('href') === '#' + id) {
                         link.classList.add('active');
+                        activeLink = link;
                     }
                 });
+                updateIndicator(activeLink);
             }
         });
-    }, { threshold: 0.4 }); // Trigger when 40% visible
+    }, { threshold: 0.4 });
 
     sections.forEach(section => observer.observe(section));
+
+    // Update indicator on resize
+    window.addEventListener('resize', () => {
+        const active = document.querySelector('.nav-link.active');
+        updateIndicator(active);
+    });
 }
 
 // Init Interactive Features

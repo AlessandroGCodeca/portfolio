@@ -972,7 +972,7 @@ p.bio {
     flex-direction: column;
     gap: 0;
     position: relative;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
 }
 
 .form-group label {
@@ -1064,6 +1064,21 @@ textarea:focus {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
     animation: shimmer 1.8s ease-in-out infinite;
+}
+
+[data-theme="dark"] .submit-btn {
+    background: linear-gradient(110deg,
+            var(--accent-color) 0%,
+            var(--accent-color) 40%,
+            var(--accent-hover) 50%,
+            var(--accent-color) 60%,
+            var(--accent-color) 100%);
+    background-size: 200% 100%;
+    color: #0F172A;
+}
+
+[data-theme="dark"] .submit-btn:hover {
+    color: #0F172A;
 }
 
 /* Language Switcher */

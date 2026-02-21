@@ -15,7 +15,21 @@ const translations = {
         navProfile: "Profile",
         navExperience: "Experience",
         navEducation: "Education",
-        contact: "Contact"
+        navProjects: "Projects",
+        contact: "Contact",
+        projectsTitle: "Projects",
+        project1Title: "Space Invaders Game",
+        project1Desc: "A fully functional clone of the classic arcade game Space Invaders, featuring enemy waves, score tracking, player lives, and custom aesthetics.",
+        project2Title: "Black Hole Security Dashboard",
+        project2Desc: "Implemented robust client-side security mechanisms including rate limiting, input validation, XSS sanitization, and honeypot bot protection.",
+        viewCodeBtn: "View Code",
+        roles: [
+            "Business Administration Student",
+            "Finance Enthusiast",
+            "AI Enthusiast",
+            "Lifelong Learner",
+            "Problem Solver"
+        ]
     },
     it: {
         flag: "🇮🇹",
@@ -32,7 +46,21 @@ const translations = {
         navProfile: "Profilo",
         navExperience: "Esperienza",
         navEducation: "Formazione",
-        contact: "Contatti"
+        navProjects: "Progetti",
+        contact: "Contatti",
+        projectsTitle: "Progetti",
+        project1Title: "Gioco Space Invaders",
+        project1Desc: "Un clone completamente funzionale del classico gioco arcade Space Invaders, con ondate di nemici, tracciamento del punteggio, vite del giocatore ed estetica personalizzata.",
+        project2Title: "Dashboard Sicurezza Black Hole",
+        project2Desc: "Meccanismi di sicurezza lato client robusti tra cui limitazione di frequenza, convalida dell'input, sanificazione XSS e protezione honeypot contro i bot.",
+        viewCodeBtn: "Vedi Codice",
+        roles: [
+            "Studente di Economia Aziendale",
+            "Appassionato di Finanza",
+            "Appassionato di AI",
+            "Apprendista Permanente",
+            "Problem Solver"
+        ]
     },
     sk: {
         flag: "🇸🇰",
@@ -49,7 +77,21 @@ const translations = {
         navProfile: "Profil",
         navExperience: "Skúsenosti",
         navEducation: "Vzdelanie",
-        contact: "Kontakt"
+        navProjects: "Projekty",
+        contact: "Kontakt",
+        projectsTitle: "Projekty",
+        project1Title: "Hra Space Invaders",
+        project1Desc: "Plne funkčný klon klasickej arkádovej hry Space Invaders, ktorý obsahuje vlny nepriateľov, sledovanie skóre, životy hráča a vlastnú estetiku.",
+        project2Title: "Bezpečnostný Panel Black Hole",
+        project2Desc: "Implementované robustné bezpečnostné mechanizmy na strane klienta vrátane obmedzenia rýchlosti, validácie vstupov, XSS sanitácie a ochrany proti botom (honeypot).",
+        viewCodeBtn: "Zobraziť Kód",
+        roles: [
+            "Študent Obchodnej Administratívy",
+            "Finančný Nadšenec",
+            "AI Nadšenec",
+            "Celoživotný Študent",
+            "Riešiteľ Problémov"
+        ]
     },
     cs: {
         flag: "🇨🇿",
@@ -66,7 +108,21 @@ const translations = {
         navProfile: "Profil",
         navExperience: "Zkušenosti",
         navEducation: "Vzdělání",
-        contact: "Kontakt"
+        navProjects: "Projekty",
+        contact: "Kontakt",
+        projectsTitle: "Projekty",
+        project1Title: "Hra Space Invaders",
+        project1Desc: "Plně funkční klon klasické arkádové hry Space Invaders, který obsahuje vlny nepřátel, sledování skóre, životy hráče a vlastní estetiku.",
+        project2Title: "Bezpečnostní Panel Black Hole",
+        project2Desc: "Implementovány robustní bezpečnostní mechanismy na straně klienta včetně omezení rychlosti, validace vstupů, XSS sanitace a ochrany proti botům (honeypot).",
+        viewCodeBtn: "Zobrazit Kód",
+        roles: [
+            "Student Obchodní Administrativy",
+            "Finanční Nadšenec",
+            "AI Nadšenec",
+            "Celoživotní Student",
+            "Řešitel Problémů"
+        ]
     },
     de: {
         flag: "🇩🇪",
@@ -83,7 +139,21 @@ const translations = {
         navProfile: "Profil",
         navExperience: "Erfahrung",
         navEducation: "Bildung",
-        contact: "Kontakt"
+        navProjects: "Projekte",
+        contact: "Kontakt",
+        projectsTitle: "Projekte",
+        project1Title: "Space Invaders Spiel",
+        project1Desc: "Ein voll funktionsfähiger Klon des klassischen Arcade-Spiels Space Invaders mit Gegnerwellen, Punktesystem, Spielerleben und eigener Ästhetik.",
+        project2Title: "Black Hole Sicherheits-Dashboard",
+        project2Desc: "Robuste clientseitige Sicherheitsmechanismen wie Ratenbegrenzung, Eingabeüberprüfung, XSS-Bereinigung und Honeypot-Bot-Schutz.",
+        viewCodeBtn: "Code Anzeigen",
+        roles: [
+            "Student der Betriebswirtschaftslehre",
+            "Finanz-Enthusiast",
+            "KI-Enthusiast",
+            "Lebenslanger Lerner",
+            "Problemlöser"
+        ]
     },
     es: {
         flag: "🇪🇸",
@@ -100,7 +170,21 @@ const translations = {
         navProfile: "Perfil",
         navExperience: "Experiencia",
         navEducation: "Formación",
-        contact: "Contacto"
+        navProjects: "Proyectos",
+        contact: "Contacto",
+        projectsTitle: "Proyectos",
+        project1Title: "Juego Space Invaders",
+        project1Desc: "Un clon completamente funcional del clásico juego arcade Space Invaders, con oleadas de enemigos, seguimiento de puntuación, vidas del jugador y estética personalizada.",
+        project2Title: "Panel de Seguridad Black Hole",
+        project2Desc: "Mecanismos de seguridad robustos en el lado del cliente, incluyendo límite de tasa, validación de entrada, desinfección XSS y protección honeypot contra bots.",
+        viewCodeBtn: "Ver Código",
+        roles: [
+            "Estudiante de Administración de Empresas",
+            "Entusiasta de las Finanzas",
+            "Entusiasta de la IA",
+            "Aprendiz Continuo",
+            "Resuelve Problemas"
+        ]
     },
     fr: {
         flag: "🇫🇷",
@@ -117,6 +201,20 @@ const translations = {
         navProfile: "Profil",
         navExperience: "Expérience",
         navEducation: "Formation",
-        contact: "Contact"
+        navProjects: "Projets",
+        contact: "Contact",
+        projectsTitle: "Projets",
+        project1Title: "Jeu Space Invaders",
+        project1Desc: "Un clone entièrement fonctionnel du jeu d'arcade classique Space Invaders, avec des vagues d'ennemis, un suivi des scores, des vies de joueur et une esthétique personnalisée.",
+        project2Title: "Tableau de Bord de Sécurité Black Hole",
+        project2Desc: "Mécanismes de sécurité robustes côté client, notamment la limitation de débit, la validation des entrées, l'assainissement XSS et la protection honeypot contre les bots.",
+        viewCodeBtn: "Voir le Code",
+        roles: [
+            "Étudiant en Administration des Affaires",
+            "Passionné de Finance",
+            "Passionné par l'IA",
+            "Apprenti à Vie",
+            "Résolveur de Problèmes"
+        ]
     }
 };

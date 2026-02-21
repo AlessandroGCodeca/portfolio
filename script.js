@@ -41,9 +41,21 @@ let roleIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
 let typeSpeed = 50;
+let currentTypeTimeout;
 
 function typeRoles(element) {
-    const currentRole = roles[roleIndex];
+    const lang = localStorage.getItem('preferredLanguage') || 'en';
+    // Use localized roles if available, otherwise fallback to English roles
+    const currentRoles = (typeof translations !== 'undefined' && translations[lang] && translations[lang].roles)
+        ? translations[lang].roles
+        : roles;
+
+    // Reset index if we switched languages and the new array is shorter
+    if (roleIndex >= currentRoles.length) {
+        roleIndex = 0;
+    }
+
+    const currentRole = currentRoles[roleIndex];
 
     if (isDeleting) {
         element.innerHTML = currentRole.substring(0, charIndex - 1);
@@ -66,14 +78,16 @@ function typeRoles(element) {
         // Finished typing word, pause then delete
         typeSpeed = 2000;
         isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
+    } else if (isDeleting && charIndex <= 0) {
         // Finished deleting, move to next word
         isDeleting = false;
-        roleIndex = (roleIndex + 1) % roles.length;
+        charIndex = 0;
+        roleIndex = (roleIndex + 1) % currentRoles.length;
         typeSpeed = 500;
     }
 
-    setTimeout(() => typeRoles(element), typeSpeed);
+    clearTimeout(currentTypeTimeout);
+    currentTypeTimeout = setTimeout(() => typeRoles(element), typeSpeed);
 }
 
 // Simple typewriter for static text (used for translations mainly)
@@ -126,11 +140,10 @@ function switchLanguage(lang) {
     // Close menu
     document.getElementById('langMenu').classList.remove('show');
 
-    // Update content
-    // Handle typing animation for subtitle if language changes
+    // Force the typing animation to delete and transition to the new language
     const subtitleEl = document.querySelector('.subtitle');
-    if (subtitleEl.textContent !== t.subtitle + " ") {
-        typeWriter(t.subtitle, subtitleEl, 30);
+    if (subtitleEl) {
+        isDeleting = true;
     }
 
     // Update UI text
@@ -145,7 +158,14 @@ function switchLanguage(lang) {
         'navProfile': t.navProfile,
         'navExperience': t.navExperience,
         'navEducation': t.navEducation,
-        'contact': t.contact
+        'navProjects': t.navProjects,
+        'contact': t.contact,
+        'projectsTitle': t.projectsTitle,
+        'project1Title': t.project1Title,
+        'project1Desc': t.project1Desc,
+        'project2Title': t.project2Title,
+        'project2Desc': t.project2Desc,
+        'viewCodeBtn': t.viewCodeBtn
     };
 
     for (let key in elements) {
@@ -767,14 +787,14 @@ window.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('preferredLanguage') || 'en';
     if (savedLang !== 'en') {
         switchLanguage(savedLang);
-    } else {
-        // Start infinite typing animation for default language
-        const subtitle = document.querySelector('.subtitle');
-        if (subtitle) {
-            // Clear initial text to start animation clean
-            subtitle.innerHTML = '';
-            typeRoles(subtitle);
-        }
+    }
+
+    // Start infinite typing animation for all languages
+    const subtitle = document.querySelector('.subtitle');
+    if (subtitle) {
+        // Clear initial text to start animation clean
+        subtitle.innerHTML = '';
+        typeRoles(subtitle);
     }
 
     // Scroll Animation Observer Setup
@@ -895,8 +915,22 @@ function initParticles() {
         particles.push(new Particle());
     }
 
+    let isCanvasVisible = true;
+    const headerObserver = new IntersectionObserver((entries) => {
+        isCanvasVisible = entries[0].isIntersecting;
+        if (isCanvasVisible) {
+            animate();
+        }
+    });
+    headerObserver.observe(document.querySelector('header'));
+
+    let animationId;
     // Animation Loop
     function animate() {
+        if (!isCanvasVisible) {
+            cancelAnimationFrame(animationId);
+            return;
+        }
         ctx.clearRect(0, 0, width, height);
 
         // Update particles
@@ -908,7 +942,7 @@ function initParticles() {
         // Connect particles
         connectParticles();
 
-        requestAnimationFrame(animate);
+        animationId = requestAnimationFrame(animate);
     }
 
     function connectParticles() {

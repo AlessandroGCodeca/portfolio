@@ -935,25 +935,21 @@ p.bio {
 }
 
 .skill-item {
-    font-size: 0.9rem;
-    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.95rem;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
     color: var(--text-color);
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 1px solid transparent;
-    border-radius: 8px;
+    background-color: transparent;
     transition: all 0.2s ease;
-    cursor: default;
     font-weight: 500;
 }
 
 .skill-item:hover {
-    background-color: #fff;
-    color: var(--primary-color);
-    border-color: var(--border-color);
+    color: var(--accent-color);
     transform: translateX(5px);
-    box-shadow: var(--shadow-sm);
-    padding-left: 14px;
-    /* Maintain padding */
 }
 
 .skill-item:last-child {
@@ -1493,34 +1489,31 @@ footer {
    ================================================================ */
 
 .cert-item {
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(226, 232, 240, 0.6);
-    border-radius: 12px;
-    padding: 18px;
-    margin-bottom: 12px;
-    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.95rem;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+    background: transparent;
+    transition: all 0.2s ease;
 }
 
 .cert-item:last-child {
-    margin-bottom: 0;
+    border-bottom: none;
 }
 
 .cert-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.12);
-    border-color: rgba(59, 130, 246, 0.3);
+    transform: translateX(5px);
 }
 
 [data-theme="dark"] .cert-item {
-    background: rgba(30, 41, 59, 0.6);
-    border-color: rgba(51, 65, 85, 0.6);
+    background: transparent;
+    border-color: var(--border-color);
 }
 
 [data-theme="dark"] .cert-item:hover {
-    box-shadow: 0 8px 25px rgba(96, 165, 250, 0.15);
-    border-color: rgba(96, 165, 250, 0.4);
+    border-color: var(--border-color);
 }
 
 [data-theme="dark"] .cert-icon {

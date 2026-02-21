@@ -687,6 +687,23 @@ section {
     /* Animation handled by JS IntersectionObserver */
 }
 
+/* Make left column sections look like identical cards to the sidebar items */
+.left-column section {
+    margin-bottom: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.left-column section:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
 .section-title {
     font-size: 0.85rem;
     font-weight: 700;

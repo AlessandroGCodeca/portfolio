@@ -663,9 +663,9 @@ h1 {
 
 /* Layout Grid */
 .main-grid {
-    display: grid;
-    grid-template-columns: 2.5fr 1fr;
-    gap: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
 
@@ -831,12 +831,11 @@ p.bio {
     transform: translateY(-2px);
 }
 
-/* Sticky Sidebar */
+/* Removed Sticky Sidebar for single column layout */
 .right-column {
-    position: sticky;
-    top: 40px;
-    /* Adjust based on preference */
-    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 .skill-list,
@@ -1527,7 +1526,6 @@ footer {
 
 @media (max-width: 768px) {
     .main-grid {
-        grid-template-columns: 1fr;
         gap: 40px;
     }
 

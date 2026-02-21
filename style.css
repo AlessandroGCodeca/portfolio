@@ -798,7 +798,7 @@ p.bio {
 
 .description {
     font-size: 1rem;
-    color: #444;
+    color: var(--text-color);
 }
 
 .description li {

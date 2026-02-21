@@ -735,7 +735,7 @@ p.bio {
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--border-color);
-    background: #fff;
+    background: var(--card-bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -791,14 +791,14 @@ p.bio {
 .company {
     font-size: 1rem;
     font-style: italic;
-    color: var(--text-color);
+    color: var(--text-light);
     margin-bottom: 10px;
     display: block;
 }
 
 .description {
     font-size: 1rem;
-    color: #444;
+    color: var(--text-color);
 }
 
 .description li {

@@ -901,21 +901,25 @@ p.bio {
     padding-right: 10px;
 }
 
-.skills-container::-webkit-scrollbar {
+.skills-container::-webkit-scrollbar,
+.projects-container::-webkit-scrollbar {
     width: 6px;
 }
 
-.skills-container::-webkit-scrollbar-track {
+.skills-container::-webkit-scrollbar-track,
+.projects-container::-webkit-scrollbar-track {
     background: #f0f0f0;
     border-radius: 3px;
 }
 
-.skills-container::-webkit-scrollbar-thumb {
+.skills-container::-webkit-scrollbar-thumb,
+.projects-container::-webkit-scrollbar-thumb {
     background: var(--accent-color);
     border-radius: 3px;
 }
 
-.skills-container::-webkit-scrollbar-thumb:hover {
+.skills-container::-webkit-scrollbar-thumb:hover,
+.projects-container::-webkit-scrollbar-thumb:hover {
     background: var(--primary-color);
 }
 
@@ -944,6 +948,11 @@ p.bio {
     transition: all 0.2s ease;
     cursor: default;
     font-weight: 500;
+}
+
+[data-theme="dark"] .skill-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    /* Very subtle white in dark mode */
 }
 
 .skill-item:hover {

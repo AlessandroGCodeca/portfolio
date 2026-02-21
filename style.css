@@ -956,6 +956,11 @@ p.bio {
     /* Maintain padding */
 }
 
+[data-theme="dark"] .skill-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    /* Subtle highlight over card background */
+}
+
 [data-theme="dark"] .skill-item:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }

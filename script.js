@@ -809,8 +809,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Scroll Animation Observer Setup
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
+        threshold: 0.01,
+        rootMargin: "0px 0px -20px 0px"
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -822,7 +822,9 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('section, .timeline-item, .sidebar-section').forEach(el => {
+    // Only apply reveal to content-level elements, NOT wrapper sections
+    // like .left-column that contain other sections
+    document.querySelectorAll('section[id], .contact-inner, .timeline-item, .sidebar-section').forEach(el => {
         el.classList.add('reveal');
         observer.observe(el);
     });

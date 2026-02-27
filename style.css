@@ -1526,11 +1526,47 @@ footer {
 
 @media (max-width: 768px) {
     .main-grid {
-        gap: 40px;
+        gap: 30px;
     }
 
     h1 {
         font-size: 2.2rem;
+    }
+
+    /* Stack the header: name/CTA on top, controls below */
+    .header-flex {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .header-controls {
+        align-self: flex-start;
+    }
+
+    /* Stack header contact info vertically */
+    .contact-info {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .contact-info .separator {
+        display: none;
+    }
+
+    /* Reduce header padding */
+    header {
+        padding: 80px 0 40px;
+    }
+
+    /* Scale down background mesh */
+    header::before {
+        width: 350px;
+        height: 350px;
+    }
+
+    /* Reduce container padding */
+    .container {
+        padding: 30px 16px;
     }
 
     .timeline-header {
@@ -1541,14 +1577,77 @@ footer {
         margin-bottom: 5px;
     }
 
+    .timeline-item {
+        padding: 20px;
+    }
+
     .timeline-logo {
         width: 50px;
         height: 50px;
     }
 
+    /* Sidebar sections */
+    .sidebar-section {
+        padding: 20px;
+    }
+
+    .skills-container {
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
+    }
+
+    /* Buttons */
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .btn-outline {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    /* Contact section */
+    .contact-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .contact-inner {
+        padding: 0 16px;
+    }
+
+    /* Cert cards */
+    .cert-header {
+        gap: 10px;
+    }
+
+    .cert-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    /* Footer */
+    .footer-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+    }
+
+    footer {
+        padding: 30px 16px;
+    }
+
     /* Mobile Navigation */
     .hamburger {
         display: flex;
+    }
+
+    .nav-container {
+        justify-content: flex-end;
     }
 
     .nav-links {
@@ -1577,11 +1676,120 @@ footer {
         border-bottom: 1px solid var(--border-color);
     }
 
+    /* Toast notification */
     .toast {
         bottom: 20px;
         right: 20px;
         left: 20px;
         font-size: 0.9rem;
+    }
+
+    /* Section spacing */
+    section {
+        margin-bottom: 35px;
+    }
+
+    .section-title {
+        font-size: 0.8rem;
+        margin-bottom: 20px;
+    }
+
+    /* Language switcher wrapping */
+    .language-switcher {
+        flex-wrap: wrap;
+    }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .greeting {
+        font-size: 1rem;
+    }
+
+    .container {
+        padding: 20px 15px;
+    }
+
+    header {
+        padding: 70px 0 30px;
+    }
+
+    /* Stack timeline items vertically when very narrow */
+    .timeline-item {
+        flex-direction: column;
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .timeline-logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .job-title {
+        font-size: 1.05rem;
+    }
+
+    .company {
+        font-size: 0.9rem;
+    }
+
+    .description {
+        font-size: 0.9rem;
+    }
+
+    p.bio {
+        font-size: 0.95rem;
+    }
+
+    /* Tighter sidebar */
+    .sidebar-section {
+        padding: 16px;
+    }
+
+    .sidebar-item {
+        padding: 10px 0;
+    }
+
+    /* Smaller language toggle */
+    .lang-toggle {
+        padding: 5px 10px;
+        font-size: 0.85rem;
+    }
+
+    /* Modal adjustments */
+    .modal-content {
+        padding: 20px;
+    }
+
+    .school-courses {
+        gap: 6px;
+    }
+
+    .course-tag {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+
+    /* Back to top button */
+    .back-to-top {
+        width: 40px;
+        height: 40px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    /* Social links */
+    .social-links {
+        gap: 15px;
     }
 }
 

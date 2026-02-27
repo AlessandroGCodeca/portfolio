@@ -1641,20 +1641,42 @@ footer {
         padding: 30px 16px;
     }
 
-    /* Mobile Navigation */
+    /* Mobile Navigation
+       ---------------------------------------------------------------
+       On mobile, .nav-links must NOT stretch the .sticky-nav.
+       We hide it entirely (display:none) and show it as a fixed
+       overlay only when .mobile-active is toggled by JS.
+       We also remove backdrop-filter to avoid containing-block issues.
+       --------------------------------------------------------------- */
+    .sticky-nav {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--bg-color);
+        padding: 10px 0;
+    }
+
+    [data-theme="dark"] .sticky-nav {
+        background: var(--bg-color);
+    }
+
     .hamburger {
         display: flex;
+        position: relative;
+        z-index: 1002;
     }
 
     .nav-container {
         justify-content: flex-end;
     }
 
+    /* Hidden by default on mobile — no stretching possible */
     .nav-links {
+        display: none;
         position: fixed;
         top: 0;
-        right: -100%;
+        right: 0;
         height: 100vh;
+        height: 100dvh;
         width: 70%;
         max-width: 300px;
         background: var(--card-bg);
@@ -1662,12 +1684,13 @@ footer {
         padding: 80px 30px 30px;
         gap: 20px;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-        transition: right 0.3s ease;
-        z-index: 999;
+        z-index: 1001;
+        overflow-y: auto;
     }
 
+    /* When active: show and slide in */
     .nav-links.mobile-active {
-        right: 0;
+        display: flex;
     }
 
     .nav-link {

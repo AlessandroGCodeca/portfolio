@@ -33,6 +33,7 @@ const translations = {
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
         viewCodeBtn: "View Code",
+        downloadCV: "Download my CV",
         roles: [
             "Business Administration Student",
             "Finance Enthusiast",
@@ -74,6 +75,7 @@ const translations = {
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
         viewCodeBtn: "Vedi Codice",
+        downloadCV: "Scarica il mio CV",
         roles: [
             "Studente di Economia Aziendale",
             "Appassionato di Finanza",
@@ -115,6 +117,7 @@ const translations = {
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
         viewCodeBtn: "Zobraziť Kód",
+        downloadCV: "Stiahnuť môj životopis",
         roles: [
             "Študent Obchodnej Administratívy",
             "Finančný Nadšenec",
@@ -156,6 +159,7 @@ const translations = {
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
         viewCodeBtn: "Zobrazit Kód",
+        downloadCV: "Stáhnout můj životopis",
         roles: [
             "Student Obchodní Administrativy",
             "Finanční Nadšenec",
@@ -197,6 +201,7 @@ const translations = {
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
         viewCodeBtn: "Code Anzeigen",
+        downloadCV: "Meinen Lebenslauf herunterladen",
         roles: [
             "Student der Betriebswirtschaftslehre",
             "Finanz-Enthusiast",
@@ -238,6 +243,7 @@ const translations = {
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
         viewCodeBtn: "Ver Código",
+        downloadCV: "Descargar mi CV",
         roles: [
             "Estudiante de Administración de Empresas",
             "Entusiasta de las Finanzas",
@@ -279,6 +285,7 @@ const translations = {
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
         viewCodeBtn: "Voir le Code",
+        downloadCV: "Télécharger mon CV",
         roles: [
             "Étudiant en Administration des Affaires",
             "Passionné de Finance",

@@ -25,6 +25,11 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
+    /* Aurora Colors - Deep Ocean (Light Mode) */
+    --aurora-1: rgba(0, 66, 170, 0.15);   /* #0042aa base */
+    --aurora-2: rgba(59, 130, 246, 0.15); /* Accent Blue */
+    --aurora-3: rgba(0, 240, 255, 0.1);   /* Cyan highlight */
+
     --font-main: 'Inter', sans-serif;
     --font-heading: 'Outfit', sans-serif;
 }
@@ -55,6 +60,11 @@
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+
+    /* Aurora Colors - Deep Ocean (Dark Mode) */
+    --aurora-1: rgba(0, 66, 170, 0.4);
+    --aurora-2: rgba(59, 130, 246, 0.4);
+    --aurora-3: rgba(0, 240, 255, 0.25);
 }
 
 /* ================================================================
@@ -307,15 +317,75 @@ dialog::backdrop {
     transition: transform 0.1s;
 }
 
-/* Particle Network */
-#particles {
+/* Aurora Background System */
+.aurora-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
     z-index: 1;
     pointer-events: none;
+    background: transparent;
+}
+
+.aurora-blob {
+    position: absolute;
+    filter: blur(60px); 
+    border-radius: 50%;
+    z-index: 1;
+    mix-blend-mode: normal; /* Works well for light/dark mode with proper opacities */
+    animation: aurora-float 20s infinite ease-in-out alternate;
+    will-change: transform;
+}
+
+[data-theme="dark"] .aurora-blob {
+    mix-blend-mode: screen; 
+}
+
+.blob-1 {
+    top: -10%;
+    left: -10%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle at center, var(--aurora-1) 0%, transparent 60%);
+    animation-delay: 0s;
+}
+
+.blob-2 {
+    top: 20%;
+    right: -20%;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle at center, var(--aurora-2) 0%, transparent 60%);
+    animation-duration: 25s;
+    animation-delay: -5s;
+}
+
+.blob-3 {
+    bottom: -30%;
+    left: 20%;
+    width: 70vw;
+    height: 70vw;
+    background: radial-gradient(circle at center, var(--aurora-3) 0%, transparent 60%);
+    animation-duration: 30s;
+    animation-delay: -10s;
+}
+
+@keyframes aurora-float {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    33% {
+        transform: translate(5vw, -5vh) scale(1.1) rotate(45deg);
+    }
+    66% {
+        transform: translate(-5vw, 10vh) scale(0.9) rotate(90deg);
+    }
+    100% {
+        transform: translate(0, 0) scale(1) rotate(180deg);
+    }
 }
 
 header .container {

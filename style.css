@@ -1011,6 +1011,31 @@ p.bio {
     background: var(--primary-color);
 }
 
+/* Scrollable Certifications Section */
+.certs-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.certs-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.certs-container::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 3px;
+}
+
+.certs-container::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 3px;
+}
+
+.certs-container::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
 .skill-category {
     margin-bottom: 25px;
 }
@@ -1690,6 +1715,12 @@ footer {
         padding-right: 0;
     }
 
+    .certs-container {
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
+    }
+
     /* Buttons */
     .btn-primary {
         padding: 10px 20px;
@@ -2007,6 +2038,11 @@ footer {
 
     /* Expand Skills Container */
     .skills-container {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .certs-container {
         max-height: none;
         overflow: visible;
     }

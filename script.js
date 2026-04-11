@@ -159,6 +159,7 @@ function switchLanguage(lang) {
         'navExperience': t.navExperience,
         'navEducation': t.navEducation,
         'navProjects': t.navProjects,
+        'navCertifications': t.navCertifications,
         'contact': t.contact,
         'projectsTitle': t.projectsTitle,
         'p1Title': t.p1Title,

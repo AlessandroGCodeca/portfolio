@@ -273,6 +273,23 @@ dialog::backdrop {
     border: 1px solid var(--border-color);
 }
 
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.tech-tag {
+    background: var(--bg-color);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+    font-weight: 500;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;

@@ -1031,7 +1031,7 @@ p.bio {
 
 /* Scrollable Certifications Section */
 .certs-container {
-    max-height: 400px;
+    max-height: 360px;
     overflow-y: auto;
     padding-right: 10px;
 }
@@ -1823,12 +1823,6 @@ header h1::after {
         padding-right: 0;
     }
 
-    .certs-container {
-        max-height: none;
-        overflow: visible;
-        padding-right: 0;
-    }
-
     /* Buttons */
     .btn-primary {
         padding: 10px 20px;
@@ -2150,10 +2144,7 @@ header h1::after {
         overflow: visible;
     }
 
-    .certs-container {
-        max-height: none;
-        overflow: visible;
-    }
+    /* certs-container retains scroll in print — handled by sidebar-section */
 
     /* Typography tweaks */
     p,

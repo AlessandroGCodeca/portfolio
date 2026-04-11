@@ -159,6 +159,7 @@ function switchLanguage(lang) {
         'navExperience': t.navExperience,
         'navEducation': t.navEducation,
         'navProjects': t.navProjects,
+        'navCertifications': t.navCertifications,
         'contact': t.contact,
         'projectsTitle': t.projectsTitle,
         'p1Title': t.p1Title,
@@ -822,11 +823,17 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    // Only apply reveal to content-level elements, NOT wrapper sections
-    // like .left-column that contain other sections
-    document.querySelectorAll('section[id], .contact-inner, .timeline-item, .sidebar-section').forEach(el => {
+    // Only apply reveal to content-level elements, NOT wrapper sections.
+    // #projects timeline items are handled separately by initProjectStagger().
+    document.querySelectorAll('section[id], .contact-inner, .sidebar-section').forEach(el => {
         el.classList.add('reveal');
         observer.observe(el);
+    });
+    document.querySelectorAll('.timeline-item').forEach(el => {
+        if (!el.closest('#projects')) {
+            el.classList.add('reveal');
+            observer.observe(el);
+        }
     });
 
     // Observe Progress Bars independently
@@ -850,46 +857,82 @@ window.addEventListener('DOMContentLoaded', () => {
         barObserver.observe(el);
     });
 
-    // Initialize 3D Tilt
+    // Initialize visual effects (desktop only for tilt/spotlight)
     if (window.matchMedia("(min-width: 769px)").matches) {
         initTilt();
+        initSpotlight();
     }
 
     // Init Final Polish
+    initProjectStagger();
     initMagneticButtons();
     initStaggeredReveals();
 });
 
 
-// 3D Tilt Logic
+// 3D Tilt Logic — only on timeline cards, not sidebars
 function initTilt() {
-    const cards = document.querySelectorAll('.timeline-item, .sidebar-section, .cert-item');
+    const cards = document.querySelectorAll('.timeline-item');
 
     cards.forEach(card => {
         card.classList.add('tilt-card');
 
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; // x position within the element.
-            const y = e.clientY - rect.top;  // y position within the element.
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = ((y - centerY) / centerY) * -3; // Max rotation deg
-            const rotateY = ((x - centerX) / centerX) * 3;
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
-
-            // Add glare effect if desired (simple version)
-            // card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.1), transparent)`;
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const cx = rect.width / 2;
+            const cy = rect.height / 2;
+            const rotateX = ((y - cy) / cy) * -5;
+            const rotateY = ((x - cx) / cx) * 5;
+            card.style.transition = 'transform 0.05s linear';
+            card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
         });
 
         card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-            // card.style.background = ''; // Reset background
+            card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+            card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
         });
     });
+}
+
+// Spotlight cursor glow on cards
+function initSpotlight() {
+    const cards = document.querySelectorAll('.timeline-item, .cert-item');
+    cards.forEach(card => {
+        card.classList.add('spotlight');
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.setProperty('--mouse-x', '-9999px');
+            card.style.setProperty('--mouse-y', '-9999px');
+        });
+    });
+}
+
+// Staggered entry for project cards — more dramatic than default reveal
+function initProjectStagger() {
+    const projectSection = document.querySelector('#projects');
+    if (!projectSection) return;
+
+    const items = projectSection.querySelectorAll('.timeline-item');
+    items.forEach(item => item.classList.add('stagger-hidden', 'stagger-project'));
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                items.forEach((item, i) => {
+                    setTimeout(() => item.classList.add('stagger-visible'), i * 120);
+                });
+                observer.disconnect();
+            }
+        });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+
+    observer.observe(projectSection);
 }
 
 // Magnetic Button Logic

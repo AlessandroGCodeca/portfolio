@@ -174,8 +174,6 @@ function switchLanguage(lang) {
         'p5Desc': t.p5Desc,
         'p6Title': t.p6Title,
         'p6Desc': t.p6Desc,
-        'p7Title': t.p7Title,
-        'p7Desc': t.p7Desc,
         'p8Title': t.p8Title,
         'p8Desc': t.p8Desc,
         'viewCodeBtn': t.viewCodeBtn

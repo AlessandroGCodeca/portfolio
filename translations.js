@@ -31,6 +31,8 @@ const translations = {
         p6Desc: "Gemini-powered webcam game that traces your hand movements to fire balls in a classic slingshot style.",
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
+        p8Title: "Jarvis",
+        p8Desc: "Voice-activated AI assistant for macOS that pairs Claude-powered reasoning with speech recognition and text-to-speech to control native apps through natural conversation.",
         viewCodeBtn: "View Code",
         downloadCV: "Download my CV",
         roles: [
@@ -72,6 +74,8 @@ const translations = {
         p6Desc: "Gioco per webcam basato su Gemini che traccia i movimenti della mano per sparare palline in stile fionda classica.",
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
+        p8Title: "Jarvis",
+        p8Desc: "Assistente AI a comando vocale per macOS che unisce il ragionamento basato su Claude al riconoscimento vocale e alla sintesi vocale per controllare le app native tramite una conversazione naturale.",
         viewCodeBtn: "Vedi Codice",
         downloadCV: "Scarica il mio CV",
         roles: [
@@ -113,6 +117,8 @@ const translations = {
         p6Desc: "Webkamerová hra poháňaná systémom Gemini, ktorá sleduje pohyby rúk a strieľa loptičky v štýle klasického praku.",
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
+        p8Title: "Jarvis",
+        p8Desc: "Hlasom ovládaný AI asistent pre macOS, ktorý spája uvažovanie poháňané modelom Claude s rozpoznávaním reči a syntézou reči na ovládanie natívnych aplikácií prostredníctvom prirodzenej konverzácie.",
         viewCodeBtn: "Zobraziť Kód",
         downloadCV: "Stiahnuť môj životopis",
         roles: [
@@ -154,6 +160,8 @@ const translations = {
         p6Desc: "Webkamerová hra poháněná systémem Gemini, která sleduje pohyby rukou a střílí míčky ve stylu klasického praku.",
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
+        p8Title: "Jarvis",
+        p8Desc: "Hlasem ovládaný AI asistent pro macOS, který spojuje uvažování poháněné modelem Claude s rozpoznáváním řeči a syntézou řeči k ovládání nativních aplikací prostřednictvím přirozené konverzace.",
         viewCodeBtn: "Zobrazit Kód",
         downloadCV: "Stáhnout můj životopis",
         roles: [
@@ -195,6 +203,8 @@ const translations = {
         p6Desc: "Gemini-gesteuertes Webkamera-Spiel, das Handbewegungen verfolgt, um Bälle im klassischen Schleuder-Stil abzufeuern.",
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
+        p8Title: "Jarvis",
+        p8Desc: "Sprachgesteuerter KI-Assistent für macOS, der Claude-gestütztes Reasoning mit Spracherkennung und Sprachsynthese kombiniert, um native Apps per natürlicher Konversation zu steuern.",
         viewCodeBtn: "Code Anzeigen",
         downloadCV: "Meinen Lebenslauf herunterladen",
         roles: [
@@ -236,6 +246,8 @@ const translations = {
         p6Desc: "Juego de cámara web impulsado por Gemini que rastrea los movimientos de la mano para disparar bolas al estilo clásico de una resortera.",
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
+        p8Title: "Jarvis",
+        p8Desc: "Asistente de IA activado por voz para macOS que combina el razonamiento impulsado por Claude con el reconocimiento de voz y la síntesis de voz para controlar aplicaciones nativas mediante una conversación natural.",
         viewCodeBtn: "Ver Código",
         downloadCV: "Descargar mi CV",
         roles: [
@@ -277,6 +289,8 @@ const translations = {
         p6Desc: "Jeu de webcam propulsé par Gemini qui suit les mouvements de la main pour tirer des balles dans un style lance-pierres classique.",
         p7Title: "Blackhole Simulator",
         p7Desc: "Educational simulation tool demonstrating gravitational physics and black hole mechanics.",
+        p8Title: "Jarvis",
+        p8Desc: "Assistant IA à commande vocale pour macOS qui associe le raisonnement propulsé par Claude à la reconnaissance vocale et à la synthèse vocale pour contrôler les applications natives par une conversation naturelle.",
         viewCodeBtn: "Voir le Code",
         downloadCV: "Télécharger mon CV",
         roles: [
